@@ -1,49 +1,30 @@
 import { useForm, type SubmitHandler } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-
-const passwordSchema = z
-  .string()
-  .min(8, 'Senha deve ter pelo menos 8 caracteres')
-  .regex(/[A-Z]/, 'Senha deve conter pelo menos uma letra maiúscula')
-  .regex(/[a-z]/, 'Senha deve conter pelo menos uma letra minúscula')
-  .regex(/[0-9]/, 'Senha deve conter pelo menos um número')
-  .regex(/[!@#$%^&*(),.?":{}|<>]/, 'Senha deve conter pelo menos um caractere especial');
-
-const registerSchema = z
-  .object({
-    name: z.string().min(1, 'Nome é obrigatório'),
-    email: z.string().email('Email inválido'),
-    password: passwordSchema,
-    confirmPassword: z.string().min(1, 'É necessário confirmar a senha'),
-  })
-  .refine(data => data.password === data.confirmPassword, {
-    message: 'As senhas não coincidem',
-    path: ['confirmPassword'],
-  });
+import { registerSchema, useRegister } from '../../queries/auth';
 
 export default function Register() {
-  // TODO: use SSR
+  const navigate = useNavigate();
+
+  const { mutate: registerMutation, isPending, isSuccess, isError, error } = useRegister(); // TODO: Add UI feedback for the mutation
   const {
     register,
     handleSubmit,
-    formState: { errors }, // TODO: Add error messages to the form
+    formState: { errors }, // TODO: Add UI error indicators on the form fields
   } = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
   });
 
   const onSubmit: SubmitHandler<z.infer<typeof registerSchema>> = async data => {
-    try {
-      const response = await fetch('/auth/register', {
-        method: 'POST',
-        body: JSON.stringify(data), // TODO: use FormData
-      });
-      const responseData = await response.json();
-      console.log(responseData);
-    } catch (error) {
-      console.error(error);
-    }
+    registerMutation(data, {
+      onSuccess: () => {
+        navigate('/login');
+      },
+      onError: () => {
+        console.error(error);
+      },
+    });
   };
 
   return (
@@ -54,21 +35,37 @@ export default function Register() {
       >
         <div>
           <label htmlFor='name'>Nome:</label>
-          <input type='text' id='name' {...register('name', { required: true })} />
+          <input
+            type='text'
+            id='name'
+            defaultValue='Lucas Nóbrega'
+            {...register('name', { required: true })}
+          />
         </div>
         <div>
           <label htmlFor='email'>Email:</label>
-          <input type='email' id='email' {...register('email', { required: true })} />
+          <input
+            type='email'
+            id='email'
+            defaultValue='lucas@gmail.com'
+            {...register('email', { required: true })}
+          />
         </div>
         <div>
-          <label htmlFor='password'>Senha: !8iAa914</label>
-          <input type='password' id='password' {...register('password', { required: true })} />
+          <label htmlFor='password'>Senha:</label>
+          <input
+            type='password'
+            id='password'
+            defaultValue='!8iAa914'
+            {...register('password', { required: true })}
+          />
         </div>
         <div>
           <label htmlFor='confirmPassword'>Confirme sua senha:</label>
           <input
             type='password'
             id='confirmPassword'
+            defaultValue='!8iAa914'
             {...register('confirmPassword', { required: true })}
           />
         </div>
