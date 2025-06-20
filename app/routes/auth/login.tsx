@@ -16,7 +16,7 @@ export default function Login() {
       </form>
       <div className='flex items-center justify-center gap-1 text-xs'>
         Ainda não possui uma conta?
-        <Link to='/register'>Cadastrar-se</Link>
+        <Link to='/'>Cadastrar-se</Link>
       </div>
     </>
   );
