@@ -1,4 +1,4 @@
-import { http, HttpResponse } from 'msw';
+import { http, HttpResponse, delay } from 'msw';
 import { loginSchema, registerSchema } from '../queries/auth';
 
 export const registerHandler = http.post('/auth/register', async ({ request }) => {
@@ -10,24 +10,19 @@ export const registerHandler = http.post('/auth/register', async ({ request }) =
   const token =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImV4cGlyZXNJbiI6IjFkIn0.eyJuYW1lIjoiTHVjYXMiLCJlbWFpbCI6Imx1Y2FzQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiIThpQWE5MTQifQ.jug0Mr-pb_WmL6q1HqmaSGELyg8pnNeopG2uAu-NyJY';
 
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(
-        new HttpResponse(
-          JSON.stringify({
-            name,
-            email,
-          }),
-          {
-            status: 201,
-            headers: {
-              'set-cookie': `auth-token=${token}`,
-            },
-          },
-        ),
-      );
-    }, randomDelay);
-  });
+  await delay(randomDelay);
+  return new HttpResponse(
+    JSON.stringify({
+      name,
+      email,
+    }),
+    {
+      status: 201,
+      headers: {
+        'Set-Cookie': `auth-token=${token}; HttpOnly; Expires=Fri, 22 Jul 2025 12:00:00 GMT; Path=/; SameSite=Lax;`,
+      },
+    },
+  );
 });
 
 export const loginHandler = http.post('/auth/login', async ({ request }) => {
@@ -36,40 +31,33 @@ export const loginHandler = http.post('/auth/login', async ({ request }) => {
   const { email, password } = validatedData;
 
   const randomDelay = Math.floor(Math.random() * 1000) + 1000;
+  await delay(randomDelay);
 
-  return new Promise(resolve => {
-    setTimeout(() => {
-      if (email === 'lucas@gmail.com' && password === '!8iAa914') {
-        const token =
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImV4cGlyZXNJbiI6IjFkIn0.eyJuYW1lIjoiTHVjYXMiLCJlbWFpbCI6Imx1Y2FzQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiIThpQWE5MTQifQ.jug0Mr-pb_WmL6q1HqmaSGELyg8pnNeopG2uAu-NyJY';
-        resolve(
-          new HttpResponse(
-            JSON.stringify({
-              name: 'Lucas',
-              email,
-            }),
-            {
-              status: 200,
-              headers: {
-                'set-cookie': `auth-token=${token}`,
-              },
-            },
-          ),
-        );
-      } else {
-        resolve(
-          new HttpResponse(
-            JSON.stringify({
-              message: 'Invalid credentials',
-            }),
-            {
-              status: 401,
-            },
-          ),
-        );
-      }
-    }, randomDelay);
-  });
+  if (email === 'lucas@gmail.com' && password === '!8iAa914') {
+    const token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImV4cGlyZXNJbiI6IjFkIn0.eyJuYW1lIjoiTHVjYXMiLCJlbWFpbCI6Imx1Y2FzQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiIThpQWE5MTQifQ.jug0Mr-pb_WmL6q1HqmaSGELyg8pnNeopG2uAu-NyJY';
+    return new HttpResponse(
+      JSON.stringify({
+        name: 'Lucas',
+        email,
+      }),
+      {
+        status: 200,
+        headers: {
+          'Set-Cookie': `auth-token=${token}; HttpOnly; Expires=Fri, 22 Jul 2025 12:00:00 GMT; Path=/; SameSite=Lax;`,
+        },
+      },
+    );
+  } else {
+    return new HttpResponse(
+      JSON.stringify({
+        message: 'Invalid credentials',
+      }),
+      {
+        status: 401,
+      },
+    );
+  }
 });
 
 export const meHandler = http.get('/auth/me', async ({ cookies }) => {
@@ -107,7 +95,7 @@ export const logoutHandler = http.post('/auth/logout', async ({ request, params,
     {
       status: 200,
       headers: {
-        'set-cookie': 'auth-token=',
+        'Set-Cookie': `auth-token=; Max-Age=0; Path=/; SameSite=Lax;`,
       },
     },
   );

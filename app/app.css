@@ -10,7 +10,7 @@
 
 html,
 body {
-  @apply bg-neutral-100/40 text-neutral-900;
+  @apply h-screen w-screen bg-neutral-100/45 text-neutral-900 antialiased;
 }
 
 @theme inline {
