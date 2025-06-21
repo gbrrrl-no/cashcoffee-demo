@@ -2,7 +2,7 @@ import { http, HttpResponse, delay } from 'msw';
 import { loginSchema, registerSchema } from '../queries/auth';
 
 export const registerHandler = http.post('/auth/register', async ({ request }) => {
-  const randomDelay = Math.floor(Math.random() * 1000) + 1000;
+  const randomDelay = Math.floor(Math.random() * 1000) + 250;
 
   const data = await request.json();
   const validatedData = registerSchema.parse(data);
@@ -19,7 +19,7 @@ export const registerHandler = http.post('/auth/register', async ({ request }) =
     {
       status: 201,
       headers: {
-        'Set-Cookie': `auth-token=${token}; HttpOnly; Expires=Fri, 22 Jul 2025 12:00:00 GMT; Path=/; SameSite=Lax;`,
+        'Set-Cookie': `auth-token=${token}; Max-Age=3600; Path=/; SameSite=Lax;`,
       },
     },
   );
@@ -30,7 +30,7 @@ export const loginHandler = http.post('/auth/login', async ({ request }) => {
   const validatedData = loginSchema.parse(data);
   const { email, password } = validatedData;
 
-  const randomDelay = Math.floor(Math.random() * 1000) + 1000;
+  const randomDelay = Math.floor(Math.random() * 1000) + 250;
   await delay(randomDelay);
 
   if (email === 'lucas@gmail.com' && password === '!8iAa914') {
@@ -44,7 +44,7 @@ export const loginHandler = http.post('/auth/login', async ({ request }) => {
       {
         status: 200,
         headers: {
-          'Set-Cookie': `auth-token=${token}; HttpOnly; Expires=Fri, 22 Jul 2025 12:00:00 GMT; Path=/; SameSite=Lax;`,
+          'Set-Cookie': `auth-token=${token}; Max-Age=3600; Path=/; SameSite=Lax;`,
         },
       },
     );
