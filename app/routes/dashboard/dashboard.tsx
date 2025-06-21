@@ -1,5 +1,6 @@
 import { useAuth } from '@/hooks/auth/useAuth';
 import { Button } from '@/components/ui/button';
+import { Navigate } from 'react-router';
 
 export default function Dashboard() {
   const { logout, isLogoutPending, user, isAuthenticated } = useAuth();
@@ -7,6 +8,10 @@ export default function Dashboard() {
   const handleLogout = () => {
     logout();
   };
+
+  if (!isAuthenticated) {
+    return <Navigate to='/register' />;
+  }
 
   return (
     <section className='flex h-full w-full items-center justify-center overflow-auto p-4'>

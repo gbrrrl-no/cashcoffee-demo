@@ -33,7 +33,6 @@ export default function Register() {
       },
     });
   };
-  console.log(errors);
 
   return (
     <article>
@@ -44,9 +43,9 @@ export default function Register() {
         </section>
 
         {errors && Object.keys(errors).length > 0 && (
-          <section className='rounded-sm bg-red-500/10 p-4 text-xs'>
-            <h4 className='mb-1 text-sm font-semibold text-red-600'>Erro ao efetuar cadastro</h4>
-            <ul className='list-inside list-disc text-red-500'>
+          <section className='rounded-sm bg-rose-500/10 p-4 text-xs'>
+            <h4 className='mb-1 text-sm font-semibold text-rose-500'>Erro ao efetuar cadastro</h4>
+            <ul className='list-inside list-disc text-rose-500'>
               {Object.entries(errors).map(([key, value]) => (
                 <li key={key} className='ml-1'>
                   {value?.message}
@@ -62,7 +61,8 @@ export default function Register() {
             <Input
               type='text'
               id='name'
-              defaultValue='Lucas Nóbrega'
+              // defaultValue='Lucas Nóbrega'
+              placeholder='Digite seu nome'
               aria-invalid={errors.name ? 'true' : 'false'}
               {...register('name', { required: true })}
             />
@@ -72,7 +72,8 @@ export default function Register() {
             <Input
               type='email'
               id='email'
-              defaultValue='lucas@gmail.com'
+              // defaultValue='lucas@gmail.com'
+              placeholder='Digite seu email'
               aria-invalid={errors.email ? 'true' : 'false'}
               {...register('email', { required: true })}
             />
@@ -82,7 +83,8 @@ export default function Register() {
             <Input
               type='password'
               id='password'
-              defaultValue='!8iAa914'
+              // defaultValue='!8iAa914'
+              placeholder='Crie uma senha'
               aria-invalid={errors.password ? 'true' : 'false'}
               {...register('password', { required: true })}
             />
@@ -92,20 +94,21 @@ export default function Register() {
             <Input
               type='password'
               id='confirmPassword'
+              // defaultValue='!8iAa914'
+              placeholder='Confirme sua senha'
               aria-invalid={errors.confirmPassword ? 'true' : 'false'}
-              defaultValue='!8iAa914'
               {...register('confirmPassword', { required: true })}
             />
           </div>
         </section>
 
-        <section className='mt-2 flex flex-col gap-1'>
+        <section className='mt-2 flex flex-col gap-3'>
           <Button type='submit' size='default' className='w-full text-xs'>
             {isPending ? <LoadingDots /> : 'Cadastrar'}
           </Button>
           <div className='flex items-center justify-center gap-1 text-xs text-neutral-600'>
             Já possui uma conta?
-            <Button asChild variant='link' className='px-0 text-xs text-indigo-500'>
+            <Button asChild variant='link' size='sm' className='h-auto p-0 text-xs text-indigo-500'>
               <Link to='/login'>Entrar</Link>
             </Button>
           </div>

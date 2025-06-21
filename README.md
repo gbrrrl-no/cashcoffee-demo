@@ -1,87 +1,83 @@
-# Welcome to React Router!
+# [CashCoffee Demo](https://https://cashcoffee-demo.vercel.app/)
 
-A modern, production-ready template for building full-stack React applications using React Router.
+Demo de login e autenticação usando Typescript com react-router (framework) e TailwindCSS.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+## Demo publicada
+Para fins de facilitar a visualização da demo foi feito um deploy na Vercel. É possível acessar a demo publicada clicando [aqui](https://https://cashcoffee-demo.vercel.app/).
 
-## Features
+## Tecnologias Utilizadas
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+- **React Router v7** - Framework de roteamento
+- **Tailwind CSS** - Framework CSS utilitário
+- **Redux Toolkit** - Gerenciamento de estado da aplicação
+- **React Query (TanStack Query)** - Gerenciamento de estado de requisições
+- **React Hook Form** - Gerenciamento de formulários
+- **Zod** - Validação de esquemas para formulários
+- **MSW (Mock Service Worker)** - Mocking de APIs
+- **Vite** - Build tool e dev server
+- **Jest** - Testes end-to-end
+- **React Testing Library** - Integração de testes com React
 
-## Getting Started
+## Pré-requisitos
 
-### Installation
+Para rodar o projeto é preciso de:
 
-Install the dependencies:
+- **Node.js** (versão 18 ou superior)
+- **[pnpm](https://pnpm.io)** (gerenciador de pacotes)
+
+Usar pnpm é opcional, mas foi o gerenciador de pacotes que eu utilizei. É também o formato da lock-file do projeto, então para ter 100% de certeza de que vai funcionar exatamente como na minha máquina é interessante usar dele. Dito isso, deve funcionar com NPM normalmente.
+
+## Instalação e execução
+
+1. **Clone o repositório**
+   ```bash
+   git clone git@github.com:gbrrrl-no/cashcoffee-demo.git
+   cd cashcoffee-demo
+   ```
+
+2. **Instale as dependências**
+   ```bash
+   pnpm install
+   ```
+
+3. **Execute os testes end-to-end**
+   ```bash
+   PARA ALTERAR
+   ```
+
+4. **Rode em modo de desenvolvimento**
+
+   Para iniciar o servidor de desenvolvimento:
+
+   ```bash
+   pnpm dev
+   ```
+
+A aplicação estará disponível em `http://localhost:5173`
+
+## Executar no modo de Produção
+
+Para fazer o build da aplicação:
 
 ```bash
-npm install
+pnpm build
 ```
 
-### Development
-
-Start the development server with HMR:
+Para iniciar o servidor de produção:
 
 ```bash
-npm run dev
+pnpm start
 ```
 
-Your application will be available at `http://localhost:5173`.
+## Funcionalidades
 
-## Building for Production
+- **Autenticação** - Sistema de login e registro mockados
+- **ProtectedRoute** - Área protegida para usuários autenticados
+- **Formulários** - Validação com React Hook Form e Zod
+- **Mocking** - APIs mockadas com MSW para desenvolvimento
+- **Responsivo** - Interface adaptável com Tailwind CSS
+- **Testes Unitários** - Testes end-to-end com Jest e React Testing Library
 
-Create a production build:
+## Decisões arquiteturais
 
-```bash
-npm run build
-```
-
-## Deployment
-
-### Docker Deployment
-
-To build and run using Docker:
-
-```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+PARA ALTERAR

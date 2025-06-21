@@ -24,7 +24,10 @@ const passwordSchema = z
   .regex(/[A-Z]/, 'Senha deve conter pelo menos uma letra maiúscula')
   .regex(/[a-z]/, 'Senha deve conter pelo menos uma letra minúscula')
   .regex(/[0-9]/, 'Senha deve conter pelo menos um número')
-  .regex(/[!@#$%^&*(),.?":{}|<>]/, 'Senha deve conter pelo menos um caractere especial');
+  .regex(
+    /[!@#$%^&*(),.?":{}|<>]/,
+    'Senha deve conter pelo menos um desses caracteres especiais: !@#$%^&*(),.?":{}|<>',
+  );
 
 export const registerSchema = z
   .object({
