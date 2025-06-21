@@ -2,6 +2,7 @@ import {
   isRouteErrorResponse,
   Links,
   Meta,
+  Navigate,
   Outlet,
   Scripts,
   ScrollRestoration,
@@ -13,6 +14,9 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './lib/query-client';
 import { store } from './store/store';
 import { Provider } from 'react-redux';
+import { AxiosError } from 'axios';
+import { useDispatch } from 'react-redux';
+import { logoutUser } from './store/features/auth/authSlice';
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -57,6 +61,13 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   let message = 'Oops!';
   let details = 'An unexpected error occurred.';
   let stack: string | undefined;
+
+  const dispatch = useDispatch();
+
+  if (error instanceof AxiosError && error.status === 401) {
+    dispatch(logoutUser());
+    return <Navigate to='/login' />;
+  }
 
   if (isRouteErrorResponse(error)) {
     message = error.status === 404 ? '404' : 'Error';

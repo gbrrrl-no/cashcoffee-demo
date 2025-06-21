@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { z } from 'zod';
 
@@ -49,8 +49,8 @@ export const useRegister = () => {
   });
 };
 
-export const useAuthenticatedUser = () => {
-  return useQuery({
+export const useAuthenticateUser = () => {
+  return useSuspenseQuery({
     queryKey: ['auth'],
     queryFn: async () => {
       const response = await axios.get('/auth/me', {

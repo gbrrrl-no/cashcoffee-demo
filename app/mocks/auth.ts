@@ -52,8 +52,20 @@ export const loginHandler = http.post('/auth/login', async ({ request }) => {
   );
 });
 
-export const meHandler = http.get('/auth/me', async ({ request, params, cookies }) => {
-  console.log(request, params, cookies);
+export const meHandler = http.get('/auth/me', async ({ cookies }) => {
+  if (
+    cookies['auth-token'] !==
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImV4cGlyZXNJbiI6IjFkIn0.eyJuYW1lIjoiTHVjYXMiLCJlbWFpbCI6Imx1Y2FzQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiIThpQWE5MTQifQ.jug0Mr-pb_WmL6q1HqmaSGELyg8pnNeopG2uAu-NyJY'
+  ) {
+    return new HttpResponse(
+      JSON.stringify({
+        message: 'Invalid token',
+      }),
+      {
+        status: 401,
+      },
+    );
+  }
 
   return new HttpResponse(
     JSON.stringify({
