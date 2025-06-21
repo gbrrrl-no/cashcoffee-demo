@@ -1,12 +1,18 @@
 import { http, HttpResponse, delay } from 'msw';
 import { loginSchema, registerSchema } from '../queries/auth';
 
+let user: { name: string; email: string } | null = null; // variavel global para armazenar o usuario logado para fins de demonstração
+
 export const registerHandler = http.post('/auth/register', async ({ request }) => {
   const randomDelay = Math.floor(Math.random() * 1000) + 250;
 
   const data = await request.json();
   const validatedData = registerSchema.parse(data);
   const { name, email } = validatedData;
+  user = {
+    name,
+    email,
+  };
   const token =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImV4cGlyZXNJbiI6IjFkIn0.eyJuYW1lIjoiTHVjYXMiLCJlbWFpbCI6Imx1Y2FzQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiIThpQWE5MTQifQ.jug0Mr-pb_WmL6q1HqmaSGELyg8pnNeopG2uAu-NyJY';
 
@@ -76,10 +82,12 @@ export const meHandler = http.get('/auth/me', async ({ cookies }) => {
   }
 
   return new HttpResponse(
-    JSON.stringify({
-      name: 'Lucas',
-      email: 'lucas@gmail.com',
-    }),
+    JSON.stringify(
+      user || {
+        name: 'Lucas',
+        email: 'lucas@gmail.com',
+      },
+    ),
     {
       status: 200,
     },

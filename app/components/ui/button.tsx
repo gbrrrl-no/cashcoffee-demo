@@ -16,12 +16,12 @@ const buttonVariants = cva(
         secondary:
           'ring ring-indigo-500/20 bg-violet-500/10 hover:bg-violet-500/15 hover:text-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:ring-offset-2 focus:ring-offset-indigo-300 text-indigo-500',
         destructive:
-          'bg-white px-2 py-2 text-xs font-medium text-slate-600 shadow ring-1 hover:shadow-lg hover:ring-2 hover:shadow-rose-500/15 ring-slate-900/10 ease-in-out hover:bg-rose-500/5 hover:ring-rose-500/20 hover:text-rose-500',
+          'bg-white px-2 py-2 text-xs font-medium text-slate-600 shadow ring-1 hover:shadow-lg hover:ring-2 hover:shadow-rose-500/15 ring-slate-900/10 ease-in-out hover:bg-rose-500/5 hover:ring-rose-500/20 hover:text-rose-500 dark:bg-neutral-700 dark:text-slate-300 dark:ring-neutral-100/20 dark:hover:bg-rose-500/10 dark:hover:ring-rose-500/20 dark:hover:text-rose-500 dark:hover:shadow-rose-500/5',
         muted: 'bg-slate-900/10 text-slate-600 shadow-xs hover:bg-slate-900/20',
         ghost: 'hover:bg-violet-500/10 text-slate-600 hover:text-indigo-500',
         link: 'text-slate-600 hover:text-indigo-500 underline-offset-4 hover:underline',
         display:
-          'bg-white px-2 py-2 text-xs font-medium text-slate-600 shadow ring-1 hover:shadow-lg hover:ring-2 hover:shadow-indigo-500/15 ring-slate-900/10 ease-in-out hover:bg-violet-500/5 hover:text-indigo-500 hover:ring-indigo-500/20 focus:ring-2 focus:ring-indigo-500/20 focus:ring-offset-2 focus:ring-offset-indigo-300 group-hover:flex',
+          'bg-white px-2 py-2 text-xs font-medium text-slate-600 shadow ring-1 hover:shadow-lg hover:ring-2 hover:shadow-indigo-500/15 ring-slate-900/10 ease-in-out hover:bg-violet-500/5 hover:text-indigo-500 hover:ring-indigo-500/20 focus:ring-2 focus:ring-indigo-500/20 focus:ring-offset-2 focus:ring-offset-indigo-300 group-hover:flex dark:bg-neutral-700 dark:text-slate-300 dark:ring-neutral-100/20 dark:hover:bg-violet-500/10 dark:hover:text-indigo-500 dark:hover:ring-indigo-500/20 dark:hover:shadow-indigo-500/5',
       },
       size: {
         default: 'h-8 px-3 text-sm py-1 has-[>svg]:px-3',

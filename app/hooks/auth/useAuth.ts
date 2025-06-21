@@ -2,8 +2,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '../../store/store';
 import { loginSuccess, logoutUser } from '../../store/features/auth/authSlice';
 import { useNavigate } from 'react-router';
-import { loginSchema, useLogin, useLogout } from '../../queries/auth';
+import { loginSchema, useAuthenticateUser, useLogin, useLogout } from '../../queries/auth';
 import type { z } from 'zod';
+import Cookies from 'js-cookie';
 
 export const useAuth = () => {
   const dispatch = useDispatch();
@@ -42,10 +43,28 @@ export const useAuth = () => {
     logoutMutation(undefined, {
       onSuccess: () => {
         dispatch(logoutUser());
-        navigate('/login');
+        return navigate('/register');
       },
       onError: error => {
         console.error(error);
+      },
+    });
+  };
+
+  const { mutate: authenticateMutation } = useAuthenticateUser();
+
+  const authenticate = () => {
+    if (!Cookies.get('auth-token')) {
+      return navigate('/register');
+    }
+
+    authenticateMutation(undefined, {
+      onSuccess: data => {
+        dispatch(loginSuccess({ user: data }));
+      },
+      onError: () => {
+        dispatch(logoutUser());
+        return navigate('/register');
       },
     });
   };
@@ -63,5 +82,6 @@ export const useAuth = () => {
     isLogoutSuccess,
     isLogoutError,
     logoutError,
+    authenticate,
   };
 };
