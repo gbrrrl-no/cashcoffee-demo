@@ -66,7 +66,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 
   if (error instanceof AxiosError && error.status === 401) {
     dispatch(logoutUser());
-    return <Navigate to='/login' />;
+    return <Navigate to='/register' />;
   }
 
   if (isRouteErrorResponse(error)) {
