@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { z } from 'zod';
 
@@ -42,6 +42,29 @@ export const useRegister = () => {
   return useMutation({
     mutationFn: async (data: z.infer<typeof registerSchema>) => {
       const response = await axios.post('/auth/register', data, {
+        withCredentials: true,
+      });
+      return response.data;
+    },
+  });
+};
+
+export const useAuthenticatedUser = () => {
+  return useQuery({
+    queryKey: ['auth'],
+    queryFn: async () => {
+      const response = await axios.get('/auth/me', {
+        withCredentials: true,
+      });
+      return response.data;
+    },
+  });
+};
+
+export const useLogout = () => {
+  return useMutation({
+    mutationFn: async () => {
+      const response = await axios.post('/auth/logout', {
         withCredentials: true,
       });
       return response.data;

@@ -1,13 +1,13 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, type SubmitHandler } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import { z } from 'zod';
-import { loginSchema, useLogin } from '../../queries/auth';
+import { loginSchema } from '../../queries/auth';
+import { useAuth } from '@/hooks/auth/useAuth';
 
 export default function Login() {
-  const navigate = useNavigate();
+  const { login, isLoginPending, isLoginSuccess, isLoginError, loginError } = useAuth(); // TODO: Add UI feedback for the mutation
 
-  const { mutate: loginMutation, isPending, isSuccess, isError, error } = useLogin(); // TODO: Add UI feedback for the mutation
   const {
     register,
     handleSubmit,
@@ -17,14 +17,7 @@ export default function Login() {
   });
 
   const onSubmit: SubmitHandler<z.infer<typeof loginSchema>> = async data => {
-    loginMutation(data, {
-      onSuccess: () => {
-        navigate('/');
-      },
-      onError: () => {
-        console.error(error);
-      },
-    });
+    login(data);
   };
 
   return (
@@ -35,17 +28,27 @@ export default function Login() {
       >
         <div>
           <label htmlFor='email'>Email:</label>
-          <input type='email' id='email' {...register('email', { required: true })} />
+          <input
+            type='email'
+            id='email'
+            defaultValue='lucas@gmail.com'
+            {...register('email', { required: true })}
+          />
         </div>
         <div>
           <label htmlFor='password'>Senha:</label>
-          <input type='password' id='password' {...register('password', { required: true })} />
+          <input
+            type='password'
+            id='password'
+            defaultValue='!8iAa914'
+            {...register('password', { required: true })}
+          />
         </div>
         <button type='submit'>Entrar</button>
       </form>
       <div className='flex items-center justify-center gap-1 text-xs'>
         Ainda não possui uma conta?
-        <Link to='/'>Cadastrar-se</Link>
+        <Link to='/register'>Cadastrar-se</Link>
       </div>
     </>
   );

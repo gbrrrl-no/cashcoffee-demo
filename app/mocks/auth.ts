@@ -13,9 +13,9 @@ export const registerHandler = http.post('/auth/register', async ({ request }) =
       email,
     }),
     {
-      status: 200,
+      status: 201,
       headers: {
-        'Set-Cookie': `token=${token}; Path=/; HttpOnly; SameSite=Lax`,
+        'set-cookie': `auth-token=${token}`,
       },
     },
   );
@@ -36,11 +36,49 @@ export const loginHandler = http.post('/auth/login', async ({ request }) => {
       {
         status: 200,
         headers: {
-          'Set-Cookie': `token=${token}; Path=/; HttpOnly; SameSite=Lax`,
+          'set-cookie': `auth-token=${token}`,
         },
       },
     );
   }
+
+  return new HttpResponse(
+    JSON.stringify({
+      message: 'Invalid credentials',
+    }),
+    {
+      status: 401,
+    },
+  );
 });
 
-export const authHandlers = [registerHandler, loginHandler];
+export const meHandler = http.get('/auth/me', async ({ request, params, cookies }) => {
+  console.log(request, params, cookies);
+
+  return new HttpResponse(
+    JSON.stringify({
+      name: 'Lucas',
+      email: 'lucas@gmail.com',
+    }),
+    {
+      status: 200,
+    },
+  );
+});
+
+export const logoutHandler = http.post('/auth/logout', async ({ request, params, cookies }) => {
+  console.log(request, params, cookies);
+  return new HttpResponse(
+    JSON.stringify({
+      message: 'Logged out successfully',
+    }),
+    {
+      status: 200,
+      headers: {
+        'set-cookie': 'auth-token=',
+      },
+    },
+  );
+});
+
+export const authHandlers = [registerHandler, loginHandler, meHandler, logoutHandler];
