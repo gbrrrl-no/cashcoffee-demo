@@ -1,21 +1,21 @@
 import { useAuth } from '@/hooks/auth/useAuth';
 import { Button } from '@/components/ui/button';
-import { Navigate } from 'react-router';
+import { Link, Navigate } from 'react-router';
 
 export default function Dashboard() {
-  const { logout, isLogoutPending, user, isAuthenticated } = useAuth();
+  const { logout, isLogoutPending, user, isAuthenticated, isAuthenticateSuccess } = useAuth();
 
   const handleLogout = () => {
     logout();
   };
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated && isAuthenticateSuccess) {
     return <Navigate to='/register' />;
   }
 
   return (
     <section className='flex h-full w-full items-center justify-center overflow-auto p-4'>
-      <main className='flex w-full max-w-lg flex-col gap-2 overflow-x-auto rounded-xl bg-white p-4 ring ring-neutral-900/10 dark:bg-neutral-800 dark:ring-neutral-100/15'>
+      <main className='flex w-full max-w-lg flex-col gap-4 overflow-x-auto rounded-xl bg-white p-4 ring ring-neutral-900/10 dark:bg-neutral-800 dark:ring-neutral-100/15'>
         <section>
           <h1 className='text-lg leading-4 font-semibold'>Dashboard</h1>
           <p className='dark:text-muted text-sm text-neutral-600'>
@@ -59,14 +59,16 @@ export default function Dashboard() {
           </p>
         </article>
 
-        <Button
-          onClick={handleLogout}
-          disabled={isLogoutPending}
-          variant='destructive'
-          className='mt-4 w-full text-xs'
-        >
-          Sair
-        </Button>
+        <div className='mt-2 flex flex-col gap-2 *:text-xs'>
+          <Button asChild variant='secondary' className='w-full text-xs'>
+            <Link to='/readme'>
+              <span>Leia o README</span>
+            </Link>
+          </Button>
+          <Button onClick={handleLogout} disabled={isLogoutPending} variant='destructive'>
+            Sair
+          </Button>
+        </div>
       </main>
     </section>
   );

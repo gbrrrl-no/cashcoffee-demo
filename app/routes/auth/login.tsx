@@ -31,7 +31,7 @@ export default function Login() {
       <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>
         <section>
           <h1 className='text-lg leading-4 font-semibold'>Entrar</h1>
-          <small className='text-muted'>Faça login para continuar</small>
+          <small className='dark:text-muted text-neutral-600'>Faça login para continuar</small>
         </section>
 
         {((errors && Object.keys(errors).length > 0) || loginError) && (

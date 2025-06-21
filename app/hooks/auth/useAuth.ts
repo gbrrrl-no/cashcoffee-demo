@@ -51,7 +51,7 @@ export const useAuth = () => {
     });
   };
 
-  const { mutate: authenticateMutation } = useAuthenticateUser();
+  const { mutate: authenticateMutation, isSuccess: isAuthenticateSuccess } = useAuthenticateUser();
 
   const authenticate = () => {
     if (!Cookies.get('auth-token')) {
@@ -73,15 +73,16 @@ export const useAuth = () => {
     isAuthenticated,
     user,
     login,
-    logout,
     isLoginPending,
     isLoginSuccess,
     isLoginError,
     loginError,
+    logout,
     isLogoutPending,
     isLogoutSuccess,
     isLogoutError,
     logoutError,
     authenticate,
+    isAuthenticateSuccess,
   };
 };
