@@ -3,11 +3,46 @@ import { Button } from '@/components/ui/button';
 import { Link, Navigate } from 'react-router';
 
 export default function Dashboard() {
-  const { logout, isLogoutPending, user, isAuthenticated, isAuthenticateSuccess } = useAuth();
+  const { logout, logoutStatus, user, isAuthenticated, authenticateStatus } = useAuth();
+
+  const { isLogoutPending } = logoutStatus;
+  const { isAuthenticateSuccess, isAuthenticatePending } = authenticateStatus;
 
   const handleLogout = () => {
     logout();
   };
+
+  if (isAuthenticatePending) {
+    return (
+      <section className='flex h-full w-full items-center justify-center overflow-auto p-4'>
+        <main className='flex w-full max-w-lg flex-col gap-4 overflow-x-auto rounded-xl bg-white p-4 ring ring-neutral-900/10 dark:bg-neutral-800 dark:ring-neutral-100/15'>
+          <section>
+            <h1 className='mb-1 text-lg leading-4 font-semibold'>Dashboard</h1>
+            <div className='h-4 w-48 animate-pulse rounded bg-neutral-200 dark:bg-neutral-700'></div>
+          </section>
+
+          <article className='flex min-w-0 flex-col gap-2'>
+            <div className='h-3 w-full animate-pulse rounded bg-neutral-200 dark:bg-neutral-700'></div>
+            <div className='h-3 w-full animate-pulse rounded bg-neutral-200 dark:bg-neutral-700'></div>
+            <div className='h-3 w-3/4 animate-pulse rounded bg-neutral-200 dark:bg-neutral-700'></div>
+            <div className='h-3 w-full animate-pulse rounded bg-neutral-200 dark:bg-neutral-700'></div>
+            <div className='h-3 w-5/6 animate-pulse rounded bg-neutral-200 dark:bg-neutral-700'></div>
+            <div className='h-3 w-full animate-pulse rounded bg-neutral-200 dark:bg-neutral-700'></div>
+            <div className='h-3 w-4/5 animate-pulse rounded bg-neutral-200 dark:bg-neutral-700'></div>
+          </article>
+
+          <div className='mt-2 flex flex-col gap-2'>
+            <Button variant='secondary' className='w-full text-xs' disabled>
+              <div className='h-3 w-24 animate-pulse rounded bg-neutral-200 dark:bg-neutral-700'></div>
+            </Button>
+            <Button variant='destructive' disabled>
+              <div className='h-3 w-14 animate-pulse rounded bg-neutral-200 dark:bg-neutral-600'></div>
+            </Button>
+          </div>
+        </main>
+      </section>
+    );
+  }
 
   if (!isAuthenticated && isAuthenticateSuccess) {
     return <Navigate to='/register' />;

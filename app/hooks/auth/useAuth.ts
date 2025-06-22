@@ -6,7 +6,31 @@ import { loginSchema, useAuthenticateUser, useLogin, useLogout } from '../../que
 import type { z } from 'zod';
 import Cookies from 'js-cookie';
 
-export const useAuth = () => {
+interface UseAuthReturn {
+  isAuthenticated: boolean;
+  user: { email: string; name: string } | null;
+  login: (data: z.infer<typeof loginSchema>) => Promise<void>;
+  loginStatus: {
+    isLoginPending: boolean;
+    isLoginSuccess: boolean;
+    isLoginError: boolean;
+    loginError: Error | null;
+  };
+  logout: () => Promise<void>;
+  logoutStatus: {
+    isLogoutPending: boolean;
+    isLogoutSuccess: boolean;
+    isLogoutError: boolean;
+    logoutError: Error | null;
+  };
+  authenticate: () => Promise<void>;
+  authenticateStatus: {
+    isAuthenticateSuccess: boolean;
+    isAuthenticatePending: boolean;
+  };
+}
+
+export const useAuth = (): UseAuthReturn => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -20,7 +44,7 @@ export const useAuth = () => {
     error: loginError,
   } = useLogin();
   const login = async (data: z.infer<typeof loginSchema>) => {
-    loginMutation(data, {
+    return loginMutation(data, {
       onSuccess: data => {
         dispatch(loginSuccess({ user: data }));
         return navigate('/');
@@ -40,7 +64,7 @@ export const useAuth = () => {
     error: logoutError,
   } = useLogout();
   const logout = async () => {
-    logoutMutation(undefined, {
+    return logoutMutation(undefined, {
       onSuccess: () => {
         dispatch(logoutUser());
         return navigate('/register');
@@ -51,14 +75,18 @@ export const useAuth = () => {
     });
   };
 
-  const { mutate: authenticateMutation, isSuccess: isAuthenticateSuccess } = useAuthenticateUser();
+  const {
+    mutate: authenticateMutation,
+    isSuccess: isAuthenticateSuccess,
+    isPending: isAuthenticatePending,
+  } = useAuthenticateUser();
 
-  const authenticate = () => {
+  const authenticate = async () => {
     if (!Cookies.get('auth-token')) {
       return navigate('/register');
     }
 
-    authenticateMutation(undefined, {
+    return authenticateMutation(undefined, {
       onSuccess: data => {
         dispatch(loginSuccess({ user: data }));
       },
@@ -73,16 +101,23 @@ export const useAuth = () => {
     isAuthenticated,
     user,
     login,
-    isLoginPending,
-    isLoginSuccess,
-    isLoginError,
-    loginError,
+    loginStatus: {
+      isLoginPending,
+      isLoginSuccess,
+      isLoginError,
+      loginError,
+    },
     logout,
-    isLogoutPending,
-    isLogoutSuccess,
-    isLogoutError,
-    logoutError,
+    logoutStatus: {
+      isLogoutPending,
+      isLogoutSuccess,
+      isLogoutError,
+      logoutError,
+    },
     authenticate,
-    isAuthenticateSuccess,
+    authenticateStatus: {
+      isAuthenticateSuccess,
+      isAuthenticatePending,
+    },
   };
 };

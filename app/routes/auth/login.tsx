@@ -11,7 +11,8 @@ import { useMemo } from 'react';
 import type { AxiosError } from 'axios';
 
 export default function Login() {
-  const { login, isLoginPending, isLoginError, loginError } = useAuth();
+  const { login, loginStatus } = useAuth();
+  const { isLoginPending, isLoginError, loginError } = loginStatus;
   const unauthorizedError = useMemo(() => loginError as AxiosError, [loginError]);
 
   const {

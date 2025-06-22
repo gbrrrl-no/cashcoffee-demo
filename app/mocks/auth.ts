@@ -94,8 +94,7 @@ export const meHandler = http.get('/auth/me', async ({ cookies }) => {
   );
 });
 
-export const logoutHandler = http.post('/auth/logout', async ({ request, params, cookies }) => {
-  console.log(request, params, cookies);
+export const logoutHandler = http.post('/auth/logout', async () => {
   return new HttpResponse(
     JSON.stringify({
       message: 'Logged out successfully',
