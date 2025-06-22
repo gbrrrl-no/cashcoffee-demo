@@ -71,6 +71,7 @@ export const useAuth = (): UseAuthReturn => {
       },
       onError: error => {
         console.error(error);
+        return error;
       },
     });
   };
