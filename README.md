@@ -130,6 +130,10 @@ Usar pnpm é opcional, mas foi o gerenciador de pacotes que eu utilizei. É tamb
 
    Essa autenticação, assim como o login e logout, foram feitos através de um custom hook criado para servir de interface para acessar esses métodos, assim como os seus estados de execução, acessíveis por conta do uso do react-query. Esses métodos em si também serviram de interface para simplificar as requisições feitas para o back, assim como as mudanças de estado no Redux com as dispatch functions necessárias. O hook retorna os métodos `login`, `logout` e `authenticate`, cada um responsável por executar mutations do react-query, que por sua vez utiliza axios como *fetcher*. Como benefício de utilizar o react-query, as mutations usadas fornecem também os estados de execução das requisições, que por sua vez podem ser repassados para o retorno do hook e utilizados nas páginas para tratamento na UI, possibilitanto, por exemplo, exibir uma tela de loading com skeletons enquanto a funcão `authenticate` ainda não foi finalizada.
 
+- **Configuração do Axios**
+
+   Mesmo os interceptors sendo uma ferramenta poderosa que evitam repetição de código (e eventuais erros causados por ter que escrever tratamentos de erro manualmente para cada requisição), creio que, para o tamanho da aplicação, já existam tratamentos o suficiente para erro `401`, portanto optei por não criar um interceptor para as poucas rotas simuladas nesse momento. Caso esse projeto se torne parte do meu portfolio posso considerar fazer um tratamento de erros robusto e centralizado.
+
 ## Resolução do questionário
 
 1. **Explique brevemente a diferença entre componentes funcionais e de classe. Quando você usaria cada um?**
@@ -150,11 +154,11 @@ Usar pnpm é opcional, mas foi o gerenciador de pacotes que eu utilizei. É tamb
 
 1. **Descreva como você usaria o Mock Service Worker (MSW) para simular endpoints de autenticação em ambiente de desenvolvimento.**
 
-   TODO
+   O MSW é uma ferramenta que usa um service worker para interceptar requisições feitas no frontend. Acredito que a melhor maneira de utilizar ele é aproveitar de todos os recursos dele para simular várias situações e respostas diferentes e, por fim, integrar com testes automatizados para permitir o tratamento dessas respostas no frontend corretamente. O ideal é usar dele para escrever testes extensivos e cobrir a maior quantidade de situações possível, não só para casos de sucesso. 
 
 1. **Como você faria tratamento de erros de rede (timeout, 4xx, 5xx) no seu fetch ou axios?**
 
-   TODO
+   Um dos maiores super poderes do Axios é o tratamento de erros completo que ele possui e o advento dos interceptos. Quando uma requisição retorna qualquer status fora de 200-299 o axios captura esse erro e lança como um AxiosError. Isso permite que nós tratemos desse erro diretamente dentro de um `try-catch` ou dentro de um interceptor, que nos permite, por exemplo, verificar se a requisição retornou um código `401` e automaticamente redirecionar o usuário para a tela de login. No seu formato mais bruto, o axios permite que tratemos os erros de maneira individual e nos dá o poder de lançar erros diferentes para cara caso para serem tratados pelo frontend. Na sua forma mais trabalhada em projetos grandes com dezenas ou centenas de chamadas diferentes para APIs, o axios permite criar tratamentos globais e centralizados.
 
 1. **Crie um custom hook useAuth() que exponha login(), logout() e o estado isAuthenticated. Mostre sua assinatura em TypeScript.**
 

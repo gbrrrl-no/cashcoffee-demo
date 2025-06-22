@@ -13,11 +13,11 @@ export default function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { mutate: registerMutation, isPending, error } = useRegister(); // TODO: Add UI feedback for the mutation
+  const { mutate: registerMutation, isPending, error } = useRegister();
   const {
     register,
     handleSubmit,
-    formState: { errors }, // TODO: Add UI error indicators on the form fields
+    formState: { errors },
   } = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
   });

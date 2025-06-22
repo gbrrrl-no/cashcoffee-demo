@@ -10,6 +10,8 @@ export const loginSchema = z.object({
 export const useLogin = () => {
   return useMutation({
     mutationFn: async (data: z.infer<typeof loginSchema>) => {
+      // TODO: tratar erros de rede
+      // TODO: criar interceptor para tratar erros no futuro
       const response = await axios.post('/auth/login', data, {
         withCredentials: true,
       });
