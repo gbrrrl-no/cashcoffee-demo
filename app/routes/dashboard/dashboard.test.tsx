@@ -4,7 +4,6 @@ import userEvent from '@testing-library/user-event';
 import { http, HttpResponse } from 'msw';
 import { createRoutesStub } from 'react-router';
 
-import Login from '@/routes/auth/login/login';
 import Register from '@/routes/auth/register/register';
 import Dashboard from './dashboard';
 
@@ -12,7 +11,7 @@ import { server } from '@/mocks/node';
 import Cookies from 'js-cookie';
 import Readme from '../readme/readme';
 
-describe('login', () => {
+describe('dashboard', () => {
   afterEach(() => {
     server.resetHandlers();
   });
@@ -41,6 +40,17 @@ describe('login', () => {
   });
 
   it('Should redirect to the register page when the user clicks on the logout button', async () => {
+    server.use(
+      http.post('/auth/logout', async () => {
+        return new HttpResponse(JSON.stringify({ message: 'Usuário deslogado com sucesso' }), {
+          status: 200,
+          headers: {
+            'Set-Cookie': `auth-token=; Max-Age=0; Path=/; SameSite=Lax;`,
+          },
+        });
+      }),
+    );
+
     const Stub = createRoutesStub([
       {
         path: '/',
