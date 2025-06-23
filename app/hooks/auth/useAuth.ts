@@ -87,6 +87,8 @@ export const useAuth = (): UseAuthReturn => {
       return navigate('/register');
     }
 
+    // TODO: refactor so the navigate is not called when the user is already in the correct page
+    // TODO: refactor so the user is redirected to the current protected route, not just the dashboard
     return authenticateMutation(undefined, {
       onSuccess: data => {
         dispatch(loginSuccess({ user: data }));

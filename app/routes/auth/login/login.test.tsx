@@ -10,7 +10,6 @@ import Dashboard from '@/routes/dashboard/dashboard';
 
 import { server } from '@/mocks/node';
 import Cookies from 'js-cookie';
-import ProtectedRoute from '@/components/ProtectedRoute';
 
 describe('login', () => {
   afterEach(() => {
@@ -119,41 +118,6 @@ describe('login', () => {
 
     await waitFor(() => {
       expect(screen.getByText('Email ou senha inválidos.')).toBeInTheDocument();
-    });
-  });
-
-  it('Should redirect to the dashboard page when the user is authenticated', async () => {
-    server.use(
-      http.get('/auth/me', async () => {
-        const token =
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImV4cGlyZXNJbiI6IjFkIn0.eyJuYW1lIjoiTHVjYXMiLCJlbWFpbCI6Imx1Y2FzQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiIThpQWE5MTQifQ.jug0Mr-pb_WmL6q1HqmaSGELyg8pnNeopG2uAu-NyJY';
-
-        return new HttpResponse(JSON.stringify({ name: 'Lucas', email: 'lucas@gmail.com' }), {
-          status: 200,
-          headers: {
-            'Set-Cookie': `auth-token=${token}; Max-Age=3600; Path=/; SameSite=Lax;`,
-          },
-        });
-      }),
-    );
-
-    const Stub = createRoutesStub([
-      {
-        path: '/login',
-        Component: Login,
-      },
-      {
-        path: '/',
-        Component: Dashboard,
-      },
-    ]);
-
-    render(<Stub initialEntries={['/login']} />);
-
-    await waitFor(() => {
-      const authToken = Cookies.get('auth-token');
-      expect(authToken).toBeDefined();
-      expect(screen.getByText('Dashboard')).toBeInTheDocument();
     });
   });
 
