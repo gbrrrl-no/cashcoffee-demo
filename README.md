@@ -141,7 +141,7 @@ Para rodar o projeto é preciso de:
 
 - **Configuração do Vitest e MSW**
 
-   TODO
+   Como o Vite não é compatível com o Jest, foi necessário usar o Vitest, que tem uma api compatível. Por conta de a versão do React Router que eu usei ser nova, as configurações foram um pouco trabalhosas, mas no final tudo se comporta como deveria, já que boa parte dos testes acabam se resumindo a usar a React Testing Library de interface. Foi necessário configurar o MSW para funcionar em ambiente Node para que ele servisse os testes. Também foi necessário configurar novas rotas mockadas para cada teste que viesse a precisar, mas de certa forma isso facilitou na configuração de respostas ao client. O maior desafio foi o de testar elementos da navegação, que no final foi resolvido com o uso do `Stub` do react-router, que cria um ambiente de roteamento interno para cada teste. 
 
 ## Resolução do questionário
 
