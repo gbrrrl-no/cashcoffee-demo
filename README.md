@@ -28,7 +28,7 @@ Demo de login e autenticação usando Typescript com react-router (framework) e 
 
    Um dos requisitos do sistema foi o de utilizar um mock de API. O MSW é uma alternativa completa e que me permitiu simular requisições como seriam feitas em ambiente de produção, me permitindo até a trabalhar com gerenciamento de cookies e construir uma simulação tão segura quanto em ambientes de produção.
 
-- **React Testing Library + Jest** - Testes end-to-end e integração com React
+- **React Testing Library + Vitest** - Testes end-to-end e integração com React
 
    TODO
 
@@ -39,7 +39,7 @@ Demo de login e autenticação usando Typescript com react-router (framework) e 
 - **Formulários** - Validação com React Hook Form e Zod
 - **Mocking** - APIs mockadas com MSW para desenvolvimento
 - **Responsivo** - Interface adaptável com Tailwind CSS
-- **Testes Unitários** - Testes end-to-end com Jest e React Testing Library
+- **Testes Unitários** - Testes end-to-end com Vitest e React Testing Library
 
 ## Pré-requisitos
 
@@ -48,7 +48,7 @@ Para rodar o projeto é preciso de:
 - **Node.js** (versão 18 ou superior)
 - [**pnpm**](https://pnpm.io) (gerenciador de pacotes)
 
-Usar pnpm é opcional, mas foi o gerenciador de pacotes que eu utilizei. É também o formato da lock-file do projeto, então para ter 100% de certeza de que vai funcionar exatamente como na minha máquina é interessante usar dele. Dito isso, deve funcionar com NPM normalmente.
+   Usar pnpm é opcional, mas foi o gerenciador de pacotes que eu utilizei. É também o formato da lock-file do projeto, então para ter 100% de certeza de que vai funcionar exatamente como na minha máquina é interessante usar dele. Dito isso, deve funcionar com NPM normalmente.
 
 ## Instalação e execução
 

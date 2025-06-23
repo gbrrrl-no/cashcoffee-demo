@@ -10,12 +10,37 @@ export const loginSchema = z.object({
 export const useLogin = () => {
   return useMutation({
     mutationFn: async (data: z.infer<typeof loginSchema>) => {
-      // TODO: tratar erros de rede
       // TODO: criar interceptor para tratar erros no futuro
-      const response = await axios.post('/auth/login', data, {
-        withCredentials: true,
-      });
-      return response.data;
+      try {
+        const response = await axios.post('/auth/login', data, {
+          withCredentials: true,
+        });
+        return response.data;
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          if (error.response) {
+            if (error.response.status === 401) {
+              return Promise.reject(new Error('Usuário ou senha inválidos.'));
+            } else if (error.response.status === 404) {
+              return Promise.reject(new Error('Recurso não encontrado.'));
+            } else if (error.response.status >= 500) {
+              return Promise.reject(
+                new Error('Erro interno do servidor. Tente novamente mais tarde.'),
+              );
+            } else {
+              return Promise.reject(
+                new Error(error.response.data?.message || `Erro: ${error.response.status}`),
+              );
+            }
+          } else if (error.request) {
+            return Promise.reject(
+              new Error('Não foi possível conectar ao servidor. Verifique sua conexão.'),
+            );
+          }
+        }
+
+        return Promise.reject(new Error('Ocorreu um erro desconhecido.'));
+      }
     },
   });
 };
@@ -46,10 +71,34 @@ export const registerSchema = z
 export const useRegister = () => {
   return useMutation({
     mutationFn: async (data: z.infer<typeof registerSchema>) => {
-      const response = await axios.post('/auth/register', data, {
-        withCredentials: true,
-      });
-      return response.data;
+      try {
+        const response = await axios.post('/auth/register', data, {
+          withCredentials: true,
+        });
+        return response.data;
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          if (error.response) {
+            if (error.response.status === 404) {
+              return Promise.reject(new Error('Recurso não encontrado.'));
+            } else if (error.response.status >= 500) {
+              return Promise.reject(
+                new Error('Erro interno do servidor. Tente novamente mais tarde.'),
+              );
+            } else {
+              return Promise.reject(
+                new Error(error.response.data?.message || `Erro: ${error.response.status}`),
+              );
+            }
+          } else if (error.request) {
+            return Promise.reject(
+              new Error('Não foi possível conectar ao servidor. Verifique sua conexão.'),
+            );
+          }
+        }
+
+        return Promise.reject(new Error('Ocorreu um erro desconhecido.'));
+      }
     },
   });
 };
@@ -57,11 +106,36 @@ export const useRegister = () => {
 export const useAuthenticateUser = () => {
   return useMutation({
     mutationFn: async () => {
-      const response = await axios.get('/auth/me', {
-        withCredentials: true,
-      });
+      try {
+        const response = await axios.get('/auth/me', {
+          withCredentials: true,
+        });
+        return response.data;
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          if (error.response) {
+            if (error.response.status === 401) {
+              return Promise.reject(new Error('Sessão expirada. Faça login novamente.'));
+            } else if (error.response.status === 404) {
+              return Promise.reject(new Error('Recurso não encontrado.'));
+            } else if (error.response.status >= 500) {
+              return Promise.reject(
+                new Error('Erro interno do servidor. Tente novamente mais tarde.'),
+              );
+            } else {
+              return Promise.reject(
+                new Error(error.response.data?.message || `Erro: ${error.response.status}`),
+              );
+            }
+          } else if (error.request) {
+            return Promise.reject(
+              new Error('Não foi possível conectar ao servidor. Verifique sua conexão.'),
+            );
+          }
+        }
 
-      return response.data;
+        return Promise.reject(new Error('Ocorreu um erro desconhecido.'));
+      }
     },
   });
 };
@@ -69,10 +143,34 @@ export const useAuthenticateUser = () => {
 export const useLogout = () => {
   return useMutation({
     mutationFn: async () => {
-      const response = await axios.post('/auth/logout', {
-        withCredentials: true,
-      });
-      return response.data;
+      try {
+        const response = await axios.post('/auth/logout', {
+          withCredentials: true,
+        });
+        return response.data;
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          if (error.response) {
+            if (error.response.status === 404) {
+              return Promise.reject(new Error('Recurso não encontrado.'));
+            } else if (error.response.status >= 500) {
+              return Promise.reject(
+                new Error('Erro interno do servidor. Tente novamente mais tarde.'),
+              );
+            } else {
+              return Promise.reject(
+                new Error(error.response.data?.message || `Erro: ${error.response.status}`),
+              );
+            }
+          } else if (error.request) {
+            return Promise.reject(
+              new Error('Não foi possível conectar ao servidor. Verifique sua conexão.'),
+            );
+          }
+        }
+
+        return Promise.reject(new Error('Ocorreu um erro desconhecido.'));
+      }
     },
   });
 };

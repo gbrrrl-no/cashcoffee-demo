@@ -7,13 +7,10 @@ import { useAuth } from '@/hooks/auth/useAuth';
 import Input from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import LoadingDots from '@/components/ui/loading-dots';
-import { useMemo } from 'react';
-import type { AxiosError } from 'axios';
 
 export default function Login() {
   const { login, loginStatus } = useAuth();
   const { isLoginPending, isLoginError, loginError } = loginStatus;
-  const unauthorizedError = useMemo(() => loginError as AxiosError, [loginError]);
 
   const {
     register,
@@ -35,18 +32,18 @@ export default function Login() {
           <small className='dark:text-muted text-neutral-600'>Faça login para continuar</small>
         </section>
 
-        {((errors && Object.keys(errors).length > 0) || loginError) && (
-          <section className='rounded-sm bg-red-500/10 p-4 text-xs'>
-            <h4 className='mb-1 text-sm font-semibold text-red-600'>Erro ao efetuar login</h4>
-            <ul className='list-inside list-disc text-red-500'>
+        {((errors && Object.keys(errors).length > 0) || isLoginError) && (
+          <section className='rounded-sm bg-rose-500/10 p-4 text-xs'>
+            <h4 className='mb-1 text-sm font-semibold text-rose-500 dark:text-white'>
+              Erro ao efetuar login
+            </h4>
+            <ul className='list-inside list-disc text-rose-500 dark:text-white'>
               {Object.entries(errors).map(([key, value]) => (
                 <li key={key} className='ml-1'>
                   {value?.message}
                 </li>
               ))}
-              {isLoginError && unauthorizedError.status === 401 && (
-                <li className='ml-1'>Email ou senha inválidos</li>
-              )}
+              {isLoginError && <li className='ml-1'>{loginError?.message}</li>}
             </ul>
           </section>
         )}

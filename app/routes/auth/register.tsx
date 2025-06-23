@@ -44,8 +44,10 @@ export default function Register() {
 
         {errors && Object.keys(errors).length > 0 && (
           <section className='rounded-sm bg-rose-500/10 p-4 text-xs'>
-            <h4 className='mb-1 text-sm font-semibold text-rose-500'>Erro ao efetuar cadastro</h4>
-            <ul className='list-inside list-disc text-rose-500'>
+            <h4 className='mb-1 text-sm font-semibold text-rose-500 dark:text-white'>
+              Erro ao efetuar cadastro
+            </h4>
+            <ul className='list-inside list-disc text-rose-500 dark:text-white'>
               {Object.entries(errors).map(([key, value]) => (
                 <li key={key} className='ml-1'>
                   {value?.message}
