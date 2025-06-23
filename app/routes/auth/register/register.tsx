@@ -63,7 +63,6 @@ export default function Register() {
             <Input
               type='text'
               id='name'
-              // defaultValue='Lucas Nóbrega'
               placeholder='Digite seu nome'
               aria-invalid={errors.name ? 'true' : 'false'}
               {...register('name', { required: true })}
@@ -74,7 +73,6 @@ export default function Register() {
             <Input
               type='email'
               id='email'
-              // defaultValue='lucas@gmail.com'
               placeholder='Digite seu email'
               aria-invalid={errors.email ? 'true' : 'false'}
               {...register('email', { required: true })}
@@ -85,7 +83,6 @@ export default function Register() {
             <Input
               type='password'
               id='password'
-              // defaultValue='!8iAa914'
               placeholder='Crie uma senha'
               aria-invalid={errors.password ? 'true' : 'false'}
               {...register('password', { required: true })}
@@ -96,7 +93,6 @@ export default function Register() {
             <Input
               type='password'
               id='confirmPassword'
-              // defaultValue='!8iAa914'
               placeholder='Confirme sua senha'
               aria-invalid={errors.confirmPassword ? 'true' : 'false'}
               {...register('confirmPassword', { required: true })}

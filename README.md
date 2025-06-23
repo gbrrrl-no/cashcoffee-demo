@@ -305,7 +305,42 @@ Para rodar o projeto é preciso de:
 
 1. **Escreva um exemplo de teste unitário (usando Jest e React Testing Library) que verifica se o componente de login exibe mensagem de erro quando a API retorna 401.**
 
-   TODO
+   O Jest possui problemas de compatibilidade com Vite, portanto usei o Vitest, com API compatível.
+
+   ```tsx
+   it('Should return an error if either the email or password are invalid', async () => {
+      server.use(
+         http.post('/auth/login', async () => {
+         return new HttpResponse(JSON.stringify({ message: 'Email ou senha inválidos.' }), {
+            status: 401,
+         });
+         }),
+      );
+
+      const Stub = createRoutesStub([
+         {
+         path: '/login',
+         Component: Login,
+         },
+      ]);
+
+      render(<Stub initialEntries={['/login']} />);
+      const user = userEvent.setup();
+
+      const emailInput = screen.getByLabelText('Email:');
+      const passwordInput = screen.getByLabelText('Senha:');
+
+      await user.type(emailInput, 'invalid-email@invalid.com');
+      await user.type(passwordInput, '123456789');
+
+      const button = screen.getByRole('button', { name: 'Entrar' });
+      await user.click(button);
+
+      await waitFor(() => {
+         expect(screen.getByText('Email ou senha inválidos.')).toBeInTheDocument();
+      });
+   });
+   ```
 
 1. **Cite duas técnicas para otimizar a performance de uma lista longa de itens em React (por exemplo, dezenas de milhares de elementos na tela).**
 

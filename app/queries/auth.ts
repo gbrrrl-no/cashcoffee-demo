@@ -3,7 +3,7 @@ import axios from 'axios';
 import { z } from 'zod';
 
 export const loginSchema = z.object({
-  email: z.string().email('Email inválido'),
+  email: z.string().min(1, 'Email é obrigatório').email('Email inválido'),
   password: z.string().min(1, 'Senha é obrigatória'),
 });
 
@@ -20,7 +20,7 @@ export const useLogin = () => {
         if (axios.isAxiosError(error)) {
           if (error.response) {
             if (error.response.status === 401) {
-              return Promise.reject(new Error('Usuário ou senha inválidos.'));
+              return Promise.reject(new Error('Email ou senha inválidos.'));
             } else if (error.response.status === 404) {
               return Promise.reject(new Error('Recurso não encontrado.'));
             } else if (error.response.status >= 500) {
@@ -59,7 +59,7 @@ const passwordSchema = z
 export const registerSchema = z
   .object({
     name: z.string().min(1, 'Nome é obrigatório'),
-    email: z.string().email('Email inválido'),
+    email: z.string().min(1, 'Email é obrigatório').email('Email inválido'),
     password: passwordSchema,
     confirmPassword: z.string().min(1, 'É necessário confirmar a senha'),
   })

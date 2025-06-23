@@ -54,7 +54,7 @@ export default function Login() {
             <Input
               type='email'
               id='email'
-              defaultValue='lucas@gmail.com'
+              placeholder='Digite seu email'
               aria-invalid={errors.email || loginError ? 'true' : 'false'}
               {...register('email', { required: true })}
             />
@@ -64,7 +64,7 @@ export default function Login() {
             <Input
               type='password'
               id='password'
-              defaultValue='!8iAa914'
+              placeholder='Digite sua senha'
               aria-invalid={errors.password || loginError ? 'true' : 'false'}
               {...register('password', { required: true })}
             />
@@ -78,7 +78,9 @@ export default function Login() {
           <div className='flex items-center justify-center gap-1 text-xs'>
             Ainda não possui uma conta?
             <Button asChild variant='link' className='px-0 text-xs text-indigo-500'>
-              <Link to='/register'>Cadastrar-se</Link>
+              <Link to='/register' data-testid='register'>
+                Cadastrar-se
+              </Link>
             </Button>
           </div>
         </section>
