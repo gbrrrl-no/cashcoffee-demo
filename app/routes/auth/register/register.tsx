@@ -2,7 +2,7 @@ import { useForm, type SubmitHandler } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { registerSchema, useRegister } from '../../queries/auth';
+import { registerSchema, useRegister } from '../../../queries/auth';
 import { Button } from '@/components/ui/button';
 import Input from '@/components/ui/input';
 import { useDispatch } from 'react-redux';

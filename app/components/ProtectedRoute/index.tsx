@@ -1,15 +1,14 @@
-import { Outlet } from 'react-router';
 import { useAuth } from '@/hooks/auth/useAuth';
 import { useEffect } from 'react';
 
-const ProtectedRoute = () => {
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { authenticate } = useAuth();
 
   useEffect(() => {
     authenticate();
   }, []);
 
-  return <Outlet />;
+  return <>{children}</>;
 };
 
 export default ProtectedRoute;

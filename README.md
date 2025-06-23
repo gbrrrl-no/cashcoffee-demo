@@ -30,7 +30,7 @@ Demo de login e autenticação usando Typescript com react-router (framework) e 
 
 - **React Testing Library + Vitest** - Testes end-to-end e integração com React
 
-   TODO
+   É requisito do projeto a presença de testes. Naturalmente, para executar testes de interface em React é necessário usar a React Testing Library, porem, por incompatibilidade com o Vite, precisei usar outra engine de testes diferente do Jest. O Vite, bundler escolhido para a aplicação por sua compatibilidade com React Router, possui uma biblioteca feita especialmente para suprir essa necessidade com o Vitest, que permite uma configuração centralizada dentro do arquivo `vite.config.ts` de configuração geral e possui uma api compatível com o Jest, ou seja, são funcionalmente iguais e suprem as mesmas necessidades.
 
 ## Funcionalidades
 
@@ -58,17 +58,22 @@ Para rodar o projeto é preciso de:
    cd cashcoffee-demo
    ```
 
-2. **Instale as dependências**
+1. **Instale as dependências**
    ```bash
    pnpm install
    ```
 
-3. **Execute os testes end-to-end**
+1. **Execute os testes de coverage**
    ```bash
-   pnpm test TODO
+   pnpm coverage
    ```
 
-4. **Inicie em modo de desenvolvimento**
+1. **Execute os testes end-to-end**
+   ```bash
+   pnpm test
+   ```
+
+1. **Inicie em modo de desenvolvimento**
    
    Para iniciar o servidor de desenvolvimento:
 
@@ -78,7 +83,7 @@ Para rodar o projeto é preciso de:
 
    A aplicação estará disponível em [`http://localhost:5173`](http://localhost:5173)
 
-5. **Teste de credenciamento**
+1. **Teste de credenciamento**
    
    A aplicação possui uma tela de cadastro e uma tela de login. É possível efetuar o cadastro contanto que se passem valores válidos nos campos e e-mail e senha. Ao efetuar um cadastro válido, o usuário é automaticamente logado e enviado para a tela de dashboard em `/`.
 
@@ -86,7 +91,7 @@ Para rodar o projeto é preciso de:
 
    OBS: Lucas é o nome do meu irmão <3
 
-6. **Executar no modo de Produção (opcional)**
+1. **Executar no modo de Produção (opcional)**
 
    Para fazer o build da aplicação:
 
@@ -133,6 +138,10 @@ Para rodar o projeto é preciso de:
 - **Configuração do Axios**
 
    Mesmo os interceptors sendo uma ferramenta poderosa que evitam repetição de código (e eventuais erros causados por ter que escrever tratamentos de erro manualmente para cada requisição), creio que, para o tamanho da aplicação, já existam tratamentos o suficiente para erro `401`, portanto optei por não criar um interceptor para as poucas rotas simuladas nesse momento. Caso esse projeto se torne parte do meu portfolio posso considerar fazer um tratamento de erros robusto e centralizado.
+
+- **Configuração do Vitest e MSW**
+
+   TODO
 
 ## Resolução do questionário
 

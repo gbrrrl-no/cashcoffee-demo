@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import axios from 'axios';
 import { describe, test, expect, it } from 'vitest';
-import Login from './login';
+import Login from '../login/login';
 
 describe('login', () => {
   // test('responds with the user', async () => {

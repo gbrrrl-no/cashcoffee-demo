@@ -90,6 +90,7 @@ export const useAuth = (): UseAuthReturn => {
     return authenticateMutation(undefined, {
       onSuccess: data => {
         dispatch(loginSuccess({ user: data }));
+        return navigate('/');
       },
       onError: () => {
         dispatch(logoutUser());
