@@ -1,12 +1,13 @@
 import { useAuth } from '@/hooks/auth/useAuth';
 import { Button } from '@/components/ui/button';
-import { Link, Navigate } from 'react-router';
+import { Link } from 'react-router';
+import { useSelector } from 'react-redux';
+import type { RootState } from '@/store/store';
 
 export default function Dashboard() {
-  const { logout, logoutStatus, user, isAuthenticated, authenticateStatus } = useAuth();
-
+  const { logout, logoutStatus, user, isAuthenticated } = useAuth();
+  const { isAuthenticatePending } = useSelector((state: RootState) => state.auth);
   const { isLogoutPending } = logoutStatus;
-  const { isAuthenticateSuccess, isAuthenticatePending } = authenticateStatus;
 
   const handleLogout = () => {
     logout();
@@ -21,7 +22,7 @@ export default function Dashboard() {
             <div className='h-4 w-48 animate-pulse rounded bg-neutral-200 dark:bg-neutral-700'></div>
           </section>
 
-          <article className='flex min-w-0 flex-col gap-2'>
+          <article className='flex min-w-0 flex-col gap-2' data-testid='dashboard-loading-state'>
             <div className='h-3 w-full animate-pulse rounded bg-neutral-200 dark:bg-neutral-700'></div>
             <div className='h-3 w-full animate-pulse rounded bg-neutral-200 dark:bg-neutral-700'></div>
             <div className='h-3 w-3/4 animate-pulse rounded bg-neutral-200 dark:bg-neutral-700'></div>
@@ -44,13 +45,9 @@ export default function Dashboard() {
     );
   }
 
-  if (!isAuthenticated && isAuthenticateSuccess) {
-    return <Navigate to='/register' />;
-  }
-
   return (
-    <section className='flex h-full w-full items-center justify-center overflow-auto p-4'>
-      <main className='flex w-full max-w-lg flex-col gap-4 overflow-x-auto rounded-xl bg-white p-4 ring ring-neutral-900/10 dark:bg-neutral-800 dark:ring-neutral-100/15'>
+    <section className='flex h-full w-full items-center justify-center bg-amber-500 p-4'>
+      <main className='flex w-full max-w-lg flex-col gap-4 rounded-xl bg-white p-4 ring ring-neutral-900/10 dark:bg-neutral-800 dark:ring-neutral-100/15'>
         <section>
           <h1 className='text-lg leading-4 font-semibold'>Dashboard</h1>
           <p className='dark:text-muted text-sm text-neutral-600'>
@@ -58,7 +55,7 @@ export default function Dashboard() {
           </p>
         </section>
 
-        <article className='text-muted-foreground flex min-w-0 flex-col gap-2 text-xs leading-5 *:min-w-3xs'>
+        <article className='text-muted-foreground flex min-w-0 flex-col gap-2 text-xs leading-5 *:min-w-0'>
           <p>
             Esta é uma aplicação de demonstração. A página de dashboard foi configurada como página
             padrão para que o usuário não precise navegar ao abrir o site, porem, por conta do

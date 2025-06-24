@@ -1,7 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '../../store/store';
-import { loginSuccess, logoutUser } from '../../store/features/auth/authSlice';
-import { useNavigate } from 'react-router';
+import {
+  changeAuthenticateStatus,
+  loginSuccess,
+  logoutUser,
+} from '../../store/features/auth/authSlice';
+import { useLocation, useNavigate } from 'react-router';
 import { loginSchema, useAuthenticateUser, useLogin, useLogout } from '../../queries/auth';
 import type { z } from 'zod';
 import Cookies from 'js-cookie';
@@ -24,15 +28,12 @@ interface UseAuthReturn {
     logoutError: Error | null;
   };
   authenticate: () => Promise<void>;
-  authenticateStatus: {
-    isAuthenticateSuccess: boolean;
-    isAuthenticatePending: boolean;
-  };
 }
 
 export const useAuth = (): UseAuthReturn => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { isAuthenticated, user } = useSelector((state: RootState) => state.auth);
 
@@ -76,26 +77,29 @@ export const useAuth = (): UseAuthReturn => {
     });
   };
 
-  const {
-    mutate: authenticateMutation,
-    isSuccess: isAuthenticateSuccess,
-    isPending: isAuthenticatePending,
-  } = useAuthenticateUser();
-
+  const { mutate: authenticateMutation } = useAuthenticateUser();
   const authenticate = async () => {
-    if (!Cookies.get('auth-token')) {
+    dispatch(
+      changeAuthenticateStatus({ isAuthenticateSuccess: false, isAuthenticatePending: true }),
+    );
+    if (!Cookies.get('auth-token') && location.pathname !== '/register')
       return navigate('/register');
-    }
 
-    // TODO: refactor so the navigate is not called when the user is already in the correct page
-    // TODO: refactor so the user is redirected to the current protected route, not just the dashboard
     return authenticateMutation(undefined, {
       onSuccess: data => {
         dispatch(loginSuccess({ user: data }));
-        return navigate('/');
+        dispatch(
+          changeAuthenticateStatus({ isAuthenticateSuccess: true, isAuthenticatePending: false }),
+        );
+        if (location.pathname === '/register' || location.pathname === '/login')
+          return navigate('/');
+        return;
       },
       onError: () => {
         dispatch(logoutUser());
+        dispatch(
+          changeAuthenticateStatus({ isAuthenticateSuccess: false, isAuthenticatePending: false }),
+        );
         return navigate('/register');
       },
     });
@@ -119,9 +123,5 @@ export const useAuth = (): UseAuthReturn => {
       logoutError,
     },
     authenticate,
-    authenticateStatus: {
-      isAuthenticateSuccess,
-      isAuthenticatePending,
-    },
   };
 };

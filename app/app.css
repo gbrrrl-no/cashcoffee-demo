@@ -11,7 +11,7 @@
 
 html,
 body {
-  @apply h-screen w-screen bg-neutral-100/45 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 antialiased selection:bg-neutral-900/10 dark:selection:bg-neutral-100/10;
+  @apply h-full w-screen bg-neutral-100/45 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 antialiased selection:bg-neutral-900/10 dark:selection:bg-neutral-100/10;
 }
 
 @theme inline {

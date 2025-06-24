@@ -4,12 +4,16 @@ interface AuthState {
   isAuthenticated: boolean;
   user: { email: string; name: string } | null;
   token: string | null;
+  isAuthenticateSuccess: boolean;
+  isAuthenticatePending: boolean;
 }
 
 const initialState: AuthState = {
   isAuthenticated: false,
   user: null,
   token: null,
+  isAuthenticateSuccess: false,
+  isAuthenticatePending: false,
 };
 
 export const authSlice = createSlice({
@@ -25,8 +29,17 @@ export const authSlice = createSlice({
       state.user = null;
       state.token = null;
     },
+    changeAuthenticateStatus: (
+      state,
+      action: PayloadAction<{ isAuthenticateSuccess: boolean; isAuthenticatePending: boolean }>,
+    ) => {
+      state.isAuthenticateSuccess = action.payload.isAuthenticateSuccess;
+      state.isAuthenticatePending = action.payload.isAuthenticatePending;
+    },
+
+    reset: () => initialState,
   },
 });
 
-export const { loginSuccess, logoutUser } = authSlice.actions;
+export const { loginSuccess, logoutUser, changeAuthenticateStatus, reset } = authSlice.actions;
 export default authSlice.reducer;

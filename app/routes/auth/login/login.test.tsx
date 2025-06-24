@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@/utils/test-utils';
 import { afterEach, describe, expect, it } from 'vitest';
 import userEvent from '@testing-library/user-event';
-import { http, HttpResponse } from 'msw';
+import { delay, http, HttpResponse } from 'msw';
 import { createRoutesStub } from 'react-router';
 
 import Login from './login';
@@ -135,7 +135,6 @@ describe('login', () => {
         });
       }),
       http.get('/auth/me', async () => {
-        console.log('get /auth/me');
         return new HttpResponse(JSON.stringify({ name: 'Lucas', email: 'lucas@gmail.com' }), {
           status: 200,
         });
@@ -171,6 +170,54 @@ describe('login', () => {
       expect(authToken).toBeDefined();
       expect(screen.getByText('Dashboard')).toBeInTheDocument();
     });
+  });
+
+  it('Should show a loading state when the user inputs a valid login form and clicks on the login button', async () => {
+    server.use(
+      http.post('/auth/login', async () => {
+        const token =
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImV4cGlyZXNJbiI6IjFkIn0.eyJuYW1lIjoiTHVjYXMiLCJlbWFpbCI6Imx1Y2FzQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiIThpQWE5MTQifQ.jug0Mr-pb_WmL6q1HqmaSGELyg8pnNeopG2uAu-NyJY';
+
+        await delay(1000);
+        return new HttpResponse(JSON.stringify({ name: 'Lucas', email: 'lucas@gmail.com' }), {
+          status: 200,
+          headers: {
+            'Set-Cookie': `auth-token=${token}; Max-Age=3600; Path=/; SameSite=Lax;`,
+          },
+        });
+      }),
+      http.get('/auth/me', async () => {
+        return new HttpResponse(JSON.stringify({ name: 'Lucas', email: 'lucas@gmail.com' }), {
+          status: 200,
+        });
+      }),
+    );
+
+    const Stub = createRoutesStub([
+      {
+        path: '/login',
+        Component: Login,
+      },
+      {
+        path: '/',
+        Component: Dashboard,
+      },
+    ]);
+
+    render(<Stub initialEntries={['/login']} />);
+
+    const user = userEvent.setup();
+
+    const emailInput = screen.getByLabelText('Email:');
+    const passwordInput = screen.getByLabelText('Senha:');
+
+    await user.type(emailInput, 'lucas@gmail.com');
+    await user.type(passwordInput, '!8iAa914');
+
+    const button = screen.getByRole('button', { name: 'Entrar' });
+    await user.click(button);
+
+    expect(screen.getByTestId('loading-dots')).toBeInTheDocument();
   });
 
   it('Should redirect to the register page when the user clicks on the register link', async () => {

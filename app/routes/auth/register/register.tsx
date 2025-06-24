@@ -13,7 +13,7 @@ export default function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { mutate: registerMutation, isPending, error } = useRegister();
+  const { mutate: registerMutation, isPending: isRegisterPending } = useRegister();
   const {
     register,
     handleSubmit,
@@ -27,9 +27,6 @@ export default function Register() {
       onSuccess: () => {
         dispatch(loginSuccess({ user: { email: data.email, name: data.name } }));
         navigate('/');
-      },
-      onError: () => {
-        console.error(error);
       },
     });
   };
@@ -102,7 +99,7 @@ export default function Register() {
 
         <section className='mt-2 flex flex-col gap-3'>
           <Button type='submit' size='default' className='w-full text-xs'>
-            {isPending ? <LoadingDots /> : 'Cadastrar'}
+            {isRegisterPending ? <LoadingDots /> : 'Cadastrar'}
           </Button>
           <div className='flex items-center justify-center gap-1 text-xs text-neutral-600'>
             Já possui uma conta?
