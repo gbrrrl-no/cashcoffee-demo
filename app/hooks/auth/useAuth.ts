@@ -48,6 +48,9 @@ export const useAuth = (): UseAuthReturn => {
     return loginMutation(data, {
       onSuccess: data => {
         dispatch(loginSuccess({ user: data }));
+        dispatch(
+          changeAuthenticateStatus({ isAuthenticateSuccess: true, isAuthenticatePending: false }),
+        );
         return navigate('/');
       },
     });
@@ -64,6 +67,9 @@ export const useAuth = (): UseAuthReturn => {
     return logoutMutation(undefined, {
       onSuccess: () => {
         dispatch(logoutUser());
+        dispatch(
+          changeAuthenticateStatus({ isAuthenticateSuccess: false, isAuthenticatePending: false }),
+        );
         return navigate('/register');
       },
     });
