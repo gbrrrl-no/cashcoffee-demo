@@ -40,10 +40,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className='flex h-full flex-col'>
         <QueryClientProvider client={queryClient}>
           <Provider store={store}>
-            {children}
+            <div className='relative w-full flex-1'>{children}</div>
             <ScrollRestoration />
             <Scripts />
           </Provider>

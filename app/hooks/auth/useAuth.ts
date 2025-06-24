@@ -50,10 +50,6 @@ export const useAuth = (): UseAuthReturn => {
         dispatch(loginSuccess({ user: data }));
         return navigate('/');
       },
-      onError: error => {
-        console.error(error);
-        return error;
-      },
     });
   };
 
@@ -69,10 +65,6 @@ export const useAuth = (): UseAuthReturn => {
       onSuccess: () => {
         dispatch(logoutUser());
         return navigate('/register');
-      },
-      onError: error => {
-        console.error(error);
-        return error;
       },
     });
   };

@@ -15,7 +15,7 @@ export default function Dashboard() {
 
   if (isAuthenticatePending) {
     return (
-      <section className='flex h-full w-full items-center justify-center overflow-auto p-4'>
+      <section className='flex h-full w-full items-center justify-center p-4'>
         <main className='flex w-full max-w-lg flex-col gap-4 overflow-x-auto rounded-xl bg-white p-4 ring ring-neutral-900/10 dark:bg-neutral-800 dark:ring-neutral-100/15'>
           <section>
             <h1 className='mb-1 text-lg leading-4 font-semibold'>Dashboard</h1>
@@ -46,7 +46,7 @@ export default function Dashboard() {
   }
 
   return (
-    <section className='flex h-full w-full items-center justify-center bg-amber-500 p-4'>
+    <section className='flex h-full w-full items-center justify-center p-4'>
       <main className='flex w-full max-w-lg flex-col gap-4 rounded-xl bg-white p-4 ring ring-neutral-900/10 dark:bg-neutral-800 dark:ring-neutral-100/15'>
         <section>
           <h1 className='text-lg leading-4 font-semibold'>Dashboard</h1>

@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@/utils/test-utils';
 import { afterEach, describe, expect, it } from 'vitest';
 import userEvent from '@testing-library/user-event';
-import { http, HttpResponse, delay } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { createRoutesStub } from 'react-router';
 
 import Register from '@/routes/auth/register/register';
