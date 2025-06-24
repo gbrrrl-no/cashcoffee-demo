@@ -58,6 +58,8 @@ Para rodar o projeto é preciso de:
    cd cashcoffee-demo
    ```
 
+   É possível acessar o repositório em [https://github.com/gbrrrl-no/cashcoffee-demo](https://github.com/gbrrrl-no/cashcoffee-demo)
+
 1. **Instale as dependências**
    ```bash
    pnpm install
