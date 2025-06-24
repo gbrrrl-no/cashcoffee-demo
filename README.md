@@ -1,6 +1,6 @@
 # [CashCoffee Demo](https://https://cashcoffee-demo.vercel.app/)
 
-Demo de login e autenticação usando Typescript com react-router (framework) e TailwindCSS. Para fins de facilitar a visualização da demo foi feito um deploy na Vercel. É possível acessar a demo publicada clicando [aqui](https://https://cashcoffee-demo.vercel.app/).
+Demo de login e autenticação usando Typescript com react-router (framework) e TailwindCSS. Para fins de facilitar a visualização da demo, foi feito um deploy na Vercel. É possível acessar a demo publicada clicando [aqui](https://https://cashcoffee-demo.vercel.app/).
 
 ## Tecnologias Utilizadas
 
@@ -14,7 +14,7 @@ Demo de login e autenticação usando Typescript com react-router (framework) e 
 
 - **Redux Toolkit** - Gerenciamento de estado da aplicação
 
-   Embora essa aplicação seja simples e a Context API service tranquilamente para lidar com a autenticação do usuário, preferi, por motivos de demonstração, utilizar o Redux para simular o desenvolvimento de uma aplicação mais complexa e que necessitaria de um gerenciamento de estados mais robusto.
+   Embora essa aplicação seja simples e a Context API servisse tranquilamente para lidar com a autenticação do usuário, preferi, por motivos de demonstração, utilizar o Redux para simular o desenvolvimento de uma aplicação mais complexa e que necessitaria de um gerenciamento de estados mais robusto. Isso se provou uma boa decisão quando precisei de um gerenciador de estados globais para lidar com estados de requisições.
 
 - **React Hook Form + Zod** - Gerenciamento de formulários e validação de esquemas
 
@@ -22,7 +22,7 @@ Demo de login e autenticação usando Typescript com react-router (framework) e 
 
 - **React Query (TanStack Query)** - Gerenciamento de estado de requisições
 
-   Como um dos requisitos do sistema foi a apresentação de feedback para o usuário nos casos de os dados inseridos nos formulários não satisfazerem a validação imposta. O react query é uma biblioteca "favorita" minha que dá acesso expandido ao estado de requisições e me permite entregar feedbacks ainda mais complexos para o usuário, como mostrar algum elemento de loading enquanto a requisição de loading ou register ainda não foi concluida, ou mostrar um skeleton da página de dashboard enquanto a requisição de autenticação ainda não foi finalizada.
+   O react query é uma biblioteca *favorita* minha que dá acesso expandido ao estado de requisições e me permite entregar feedbacks ainda mais complexos para o usuário, como mostrar algum elemento de loading enquanto a requisição de loading ou register ainda não foi concluida e usar isso para mostrar um skeleton da página de dashboard enquanto a requisição de autenticação ainda não foi finalizada. Ele tem outros "super poderes" muito interessantes que eu gosto de ter a minha disposição. Como um dos requisitos do sistema foi a apresentação de feedback para o usuário nos casos de os dados inseridos nos formulários não satisfazerem a validação imposta, decidi usar o react-query para ir além e mostrar feedbacks baseados no estado da requisição. 
 
 - **MSW (Mock Service Worker)** - Mocking de APIs
 
@@ -30,7 +30,7 @@ Demo de login e autenticação usando Typescript com react-router (framework) e 
 
 - **React Testing Library + Vitest** - Testes end-to-end e integração com React
 
-   É requisito do projeto a presença de testes. Naturalmente, para executar testes de interface em React é necessário usar a React Testing Library, porem, por incompatibilidade com o Vite, precisei usar outra engine de testes diferente do Jest. O Vite, bundler escolhido para a aplicação por sua compatibilidade com React Router, possui uma biblioteca feita especialmente para suprir essa necessidade com o Vitest, que permite uma configuração centralizada dentro do arquivo `vite.config.ts` de configuração geral e possui uma api compatível com o Jest, ou seja, são funcionalmente iguais e suprem as mesmas necessidades.
+   É requisito do projeto a presença de testes. Naturalmente, para executar testes de interface em React é necessário usar a React Testing Library, porem, por incompatibilidade com o Vite, precisei usar outra engine de testes diferente do Jest. O Vite, bundler escolhido para a aplicação por sua compatibilidade com React Router, possui uma biblioteca feita especialmente para suprir essa necessidade com o Vitest, que permite uma configuração centralizada dentro do próprio `vite.config.ts` e possui uma api compatível com o Jest, ou seja, são funcionalmente iguais e suprem as mesmas necessidades.
 
 ## Funcionalidades
 
@@ -38,8 +38,8 @@ Demo de login e autenticação usando Typescript com react-router (framework) e 
 - **ProtectedRoute** - Área protegida para usuários autenticados
 - **Formulários** - Validação com React Hook Form e Zod
 - **Mocking** - APIs mockadas com MSW para desenvolvimento
-- **Responsivo** - Interface adaptável com Tailwind CSS
-- **Testes Unitários** - Testes end-to-end com Vitest e React Testing Library
+- **Responsivo** - Interface adaptável para mobile e desktop com Tailwind CSS
+- **Testes de fluxo** - Testes automatizados de fluxo de uso com Vitest e React Testing Library
 
 ## Pré-requisitos
 
@@ -48,7 +48,7 @@ Para rodar o projeto é preciso de:
 - **Node.js** (versão 18 ou superior)
 - [**pnpm**](https://pnpm.io) (gerenciador de pacotes)
 
-   Usar pnpm é opcional, mas foi o gerenciador de pacotes que eu utilizei. É também o formato da lock-file do projeto, então para ter 100% de certeza de que vai funcionar exatamente como na minha máquina é interessante usar dele. Dito isso, deve funcionar com NPM normalmente.
+   **Obs**: Usar pnpm é opcional, mas foi o gerenciador de pacotes que eu utilizei. É também o formato da lock-file do projeto, então para ter 100% de certeza de que vai funcionar exatamente como na minha máquina é interessante usar dele. Dito isso, deve funcionar com NPM normalmente.
 
 ## Instalação e execução
 
@@ -68,7 +68,7 @@ Para rodar o projeto é preciso de:
    pnpm coverage
    ```
 
-1. **Execute os testes end-to-end**
+1. **Execute os testes automatizados**
    ```bash
    pnpm test
    ```
@@ -89,7 +89,7 @@ Para rodar o projeto é preciso de:
 
    Para fins de demonstração, existe também uma credencial já cadastrada para que se possa testas os diversos feedbacks na UI da tela de login. Para acessá-los utilize o usuário `lucas@gmail.com` e a senha `!8iAa914`.
 
-   OBS: Lucas é o nome do meu irmão <3
+   **Obs**: Lucas é o nome do meu irmão <3
 
 1. **Executar no modo de Produção (opcional)**
 
@@ -109,15 +109,15 @@ Para rodar o projeto é preciso de:
 
 - **Configurações do React Router**
 
-   O React Router é uma biblioteca bem estabelecida e documentada. Ela foi dada como requisito não funcional da aplicação, mas não foi especificado o modo que deveria ser implementado. Por conta da caráter mais opinado e da flexibilidade para uso de ferramentas, decidi por usar o novo *Framework Mode*, que funciona de maneira similar ao NextJS, ferramenta a qual eu tenho muita familiaridade, mas ainda dando o caracteristico acesso a customização das "entranhas" do roteamento da aplicação de forma mais declarativa, alem de me permitir (de maneira opcional) utilizar SSR para algumas páginas.
+   O React Router é uma biblioteca bem estabelecida e documentada. Ela foi dada como requisito não funcional da aplicação, mas não foi especificado o modo que deveria ser implementado. Por conta do caráter mais opinado e da flexibilidade para uso de múltiplas formas de renderização, decidi por usar o novo *Framework Mode*, que funciona de maneira similar ao NextJS, ferramenta a qual eu tenho muita familiaridade, mas ainda dando o caracteristico acesso a customização das "entranhas" do roteamento da aplicação de forma mais declarativa.
 
 - **Formato da pasta de componentes e Shadcn/ui**
 
-   Acho importante mencionar a estrutura que utilizei para a pasta de componentes. Com a popularização do shadcn/ui, uma cli que facilita a criação inicial de componentes de UI para aplicações web usando TailwindCSS, algumas convenções de organização de componentes mudaram. Uma delas é a de organizar componentes atômicos de UI dentro de uma pasta interna a `/components` chamada `/ui`, onde componentes pequenos são declarados com seus nomes  usando kebab-case. Eu iniciei o shadcn/ui no projeto para facilitar a configuração do `app.css` e a criação de uma função utilitária que eu uso com muita frequência nas aplicações que trabalho chamada `cn()`, uma mistura de funções que visam unificar classes do TailwindCSS e tornar a estilização dinâmica de componentes mais fácil. Eu não cheguei a pegar nenhum componente diretamente do shadcn/ui em si. Os componentes `Button` e `Input`, por exemplo, são componentes com código reaproveitado de outras aplicações, embora tenham sido baseados nos componentes base do shadcn/ui.
+   Acho importante mencionar a estrutura que utilizei para a pasta de componentes. Com a popularização do shadcn/ui, uma cli que facilita a criação inicial de componentes de UI para aplicações web usando TailwindCSS, algumas convenções de organização de componentes mudaram. Uma delas é a de organizar componentes atômicos de UI dentro de uma pasta interna a `/components` chamada `/ui`, onde componentes singulares são declarados com seus nomes  usando kebab-case. Eu iniciei o shadcn/ui no projeto para facilitar a configuração do `app.css` e a criação de uma função utilitária que eu uso com muita frequência nas aplicações que trabalho chamada `cn()`, uma mistura de funções que visam unificar classes do TailwindCSS e tornar a estilização dinâmica de componentes mais fácil. Eu não cheguei a pegar nenhum componente diretamente do shadcn/ui em si. Os componentes `Button` e `Input`, por exemplo, são componentes com código reaproveitado de outras aplicações, embora tenham sido baseados nos componentes base do shadcn/ui.
 
 - **Utilização de Redux**
 
-   Um dos impasses que tive com essa aplicação foi a utilização da Context API ou Redux para fazer o gerenciamento da autenticação do usuário. Autenticação/Dados do usuário não são informações definidas no início da aplicação e não mudam com frequência, porem, dado que em uma aplicação da "vida real" dificilmente não utilizaria Redux e que essa é uma demonstração dos meus conhecimentos e práticas de desenvolvimento, optei por usar Redux e entregar uma solução mais completa.
+   Um dos impasses que tive com essa aplicação foi a utilização da Context API ou Redux para fazer o gerenciamento da autenticação do usuário. Autenticação/Dados do usuário são informações definidas no início da aplicação e não mudam com frequência, porem, dado que em uma aplicação da "vida real" dificilmente não utilizaria Redux e que essa é uma demonstração dos meus conhecimentos e práticas de desenvolvimento, optei por usar Redux e entregar uma solução mais completa.
 
 - **Uso do react-hook-form e zod**
 
@@ -129,7 +129,7 @@ Para rodar o projeto é preciso de:
 
 - **Protected Route**
 
-   Isso afetou diretamente a minha implementação do componente de Protected Route. A abordagem na qual eu sou familiarizado é a de criar um wrapper chamado ProtectedRoute que funciona quase que como um context provider, mas, ao invés de fornecer dados para os componentes filhos, apenas executa código de validação toda vez que for chamado. Isso funciona bem com aplicações que usam frameworks que permitem o uso de layouts, que é o caso de React Router. Assim, ao invés de possuir apenas um componente normal que precisaria ser implementado em toda página protegia, pude apenas tratar o ProtectedRoute como um layout que envelopa todas as rotas protegidas, lógica implementada em `@/app/routes.ts`. Nesse meu layout, então, eu faço a verificação do cookie de autenticação do usuário usando a biblioteca `js-cookie`. Como o cookie está acessível no client, eu consigo verificar a existência desse cookie com o token e, caso ele não exista, o usuário é automaticamente redirecionado para a tela de login. O cookie pode deixar de existir, porque na minha API mockada com MSW, assim como em qualquer backend em produção, o cookie é enviado com uma data para expirar. Já no caso de o cookie ainda existir, é chamada uma requisição específica para esse propósito que envia o cookie de maneira automática para o backend (possível por conta flag `withCredentials`), que checa se aquele cookie ainda é válido e retorna os dados do usuário, que por fim são guardados no Redux. Em uma aplicação robusta e mais segura, seria feito o envio de um cookie com um `refresh-token` para, caso o `auth-token` tenha expirado mas o `refresh-token` não, o `auht-token` anterior seja invalidado e um novo fosse criado.
+   A maneira que eu tratei o token afetou diretamente a minha implementação do componente de Protected Route. A abordagem na qual eu sou familiarizado é a de criar um wrapper chamado ProtectedRoute que funciona quase que como um context provider, mas, ao invés de fornecer dados para os componentes filhos, apenas executa código de validação toda vez que for chamado. Isso funciona bem com aplicações que usam frameworks que permitem o uso de layouts, que é o caso de React Router. Assim, ao invés de possuir apenas um componente normal que precisaria ser implementado em toda página protegia, pude apenas tratar o ProtectedRoute como um layout que envelopa todas as rotas protegidas, lógica implementada em `@/app/routes.ts`. Nesse meu layout, então, eu faço a verificação do cookie de autenticação do usuário usando a biblioteca `js-cookie`. Como o cookie está acessível no client, eu consigo verificar a existência desse cookie com o token e, caso ele não exista, o usuário é automaticamente redirecionado para a tela de login. O cookie pode deixar de existir, porque na minha API mockada com MSW, assim como em qualquer backend em produção, o cookie é enviado com uma data para expirar. Já no caso de o cookie ainda existir, é chamada uma requisição específica para esse propósito que envia o cookie de maneira automática para o backend (possível por conta flag `withCredentials`), que checa se aquele cookie ainda é válido e retorna os dados do usuário, que por fim são guardados no Redux. Em uma aplicação robusta e mais segura, seria feito o envio de um cookie com um `refresh-token` para, caso o `auth-token` tenha expirado mas o `refresh-token` não, o `auht-token` anterior seja invalidado e um novo fosse criado.
 
 - **Hook `useAuth()`**
 
@@ -137,11 +137,11 @@ Para rodar o projeto é preciso de:
 
 - **Configuração do Axios**
 
-   Mesmo os interceptors sendo uma ferramenta poderosa que evitam repetição de código (e eventuais erros causados por ter que escrever tratamentos de erro manualmente para cada requisição), creio que, para o tamanho da aplicação, já existam tratamentos o suficiente para erro `401`, portanto optei por não criar um interceptor para as poucas rotas simuladas nesse momento. Caso esse projeto se torne parte do meu portfolio posso considerar fazer um tratamento de erros robusto e centralizado.
+   Mesmo os interceptors sendo uma ferramenta poderosa que evitam repetição de código (e eventuais erros causados por ter que escrever tratamentos de erro manualmente para cada requisição), creio que, para o tamanho da aplicação, já existam tratamentos o suficiente para erro `401`, portanto optei por não criar um interceptor para as poucas rotas simuladas nesse momento. Caso esse projeto se torne parte do meu portfolio, posso considerar fazer um tratamento de erros robusto e centralizado.
 
 - **Configuração do Vitest e MSW**
 
-   Como o Vite não é compatível com o Jest, foi necessário usar o Vitest, que tem uma api compatível. Por conta de a versão do React Router que eu usei ser nova, as configurações foram um pouco trabalhosas, mas no final tudo se comporta como deveria, já que boa parte dos testes acabam se resumindo a usar a React Testing Library de interface. Foi necessário configurar o MSW para funcionar em ambiente Node para que ele servisse os testes. Também foi necessário configurar novas rotas mockadas para cada teste que viesse a precisar, mas de certa forma isso facilitou na configuração de respostas ao client. O maior desafio foi o de testar elementos da navegação, que no final foi resolvido com o uso do `Stub` do react-router, que cria um ambiente de roteamento interno para cada teste. 
+   Como o Vite não é compatível com o Jest, foi necessário usar o Vitest, que tem uma api compatível. Por conta de a versão do React Router que eu usei ser nova, as configurações foram um pouco trabalhosas, mas no final tudo se comporta como deveria, já que boa parte dos testes acabam se resumindo a usar a React Testing Library para testes de interface. Foi necessário configurar o MSW para funcionar em ambiente Node para que ele servisse os testes. Também foi necessário configurar novas rotas mockadas para cada teste que viesse a precisar, mas de certa forma isso facilitou na configuração de respostas ao client. O maior desafio foi o de testar elementos da navegação, que no final foi resolvido com o uso do `Stub` do react-router, que cria um ambiente de roteamento interno para cada teste. 
 
 ## Resolução do questionário
 
@@ -155,7 +155,7 @@ Para rodar o projeto é preciso de:
 
 1. **Como você implementaria um “Protected Route” em React Router para proteger páginas que exigem login?**
 
-   Na minha experiência, uma implementação do Protected Route é criar um componente "wrapper" que recebe uma `children` e retorna ela sem alterações visuais. Quase que um context provider. A diferença é que o componente executaria lógica de autenticação, verificando se o usuário possui as credenciais necessárias para acessar o componente que está sendo renderizado em `children` e, caso não possua, redirecione o usuário para uma página que ele possua acesso. Uma maneira inteligente de implementar isso com react-router (ou até com NextJS também) é a de criar um layout que envelopa as rotas protegidas e faz essa autenticação para qualquer acesso em rotas dentro daquele layout. Fica então um layout "invisível" que autentica o usuário e tira a necessidade de chamar o componente de Protected Route em todas as rotas, o que é mais sucetível a erro.
+   Na minha experiência, uma boa implementação do Protected Route é criar um componente "wrapper" que recebe uma `children` e retorna ela sem alterações visuais. Quase que um context provider. A diferença é que o componente executaria lógica de autenticação, verificando se o usuário possui as credenciais necessárias para acessar o componente que está sendo renderizado em `children` e, caso não possua, redirecione o usuário para uma página que ele possua acesso. Uma maneira inteligente de implementar isso com react-router (ou até com NextJS também) é a de criar um layout que envelopa as rotas protegidas e faz essa autenticação para qualquer acesso em rotas dentro daquele layout. Fica então um layout "invisível" que autentica o usuário e tira a necessidade de chamar o componente de Protected Route em todas as rotas, o que é mais sucetível a erro.
 
 1. **Quais cuidados de segurança você tomaria ao armazenar tokens JWT no cliente?**
 
@@ -174,41 +174,30 @@ Para rodar o projeto é preciso de:
    Considerando que precisei criar esse hook na minha aplicação para usar de interface para autenticação e manipuação do redux, irei apenas mostrar como eu implementei no meu código. O código a seguir possui lógica adicional usando react-query e redux.
 
    ```tsx
-   import { useSelector, useDispatch } from 'react-redux';
-   import type { RootState } from '../../store/store';
-   import { loginSuccess, logoutUser } from '../../store/features/auth/authSlice';
-   import { useNavigate } from 'react-router';
-   import { loginSchema, useAuthenticateUser, useLogin, useLogout } from '../../queries/auth';
-   import type { z } from 'zod';
-   import Cookies from 'js-cookie';
-
    interface UseAuthReturn {
-   isAuthenticated: boolean;
-   user: { email: string; name: string } | null;
-   login: (data: z.infer<typeof loginSchema>) => Promise<void>;
-   loginStatus: {
-      isLoginPending: boolean;
-      isLoginSuccess: boolean;
-      isLoginError: boolean;
-      loginError: Error | null;
-   };
-   logout: () => Promise<void>;
-   logoutStatus: {
-      isLogoutPending: boolean;
-      isLogoutSuccess: boolean;
-      isLogoutError: boolean;
-      logoutError: Error | null;
-   };
-   authenticate: () => Promise<void>;
-   authenticateStatus: {
-      isAuthenticateSuccess: boolean;
-      isAuthenticatePending: boolean;
-   };
+      isAuthenticated: boolean;
+      user: { email: string; name: string } | null;
+      login: (data: z.infer<typeof loginSchema>) => Promise<void>;
+      loginStatus: {
+         isLoginPending: boolean;
+         isLoginSuccess: boolean;
+         isLoginError: boolean;
+         loginError: Error | null;
+      };
+      logout: () => Promise<void>;
+      logoutStatus: {
+         isLogoutPending: boolean;
+         isLogoutSuccess: boolean;
+         isLogoutError: boolean;
+         logoutError: Error | null;
+      };
+      authenticate: () => Promise<void>;
    }
 
    export const useAuth = (): UseAuthReturn => {
       const dispatch = useDispatch();
       const navigate = useNavigate();
+      const location = useLocation();
 
       const { isAuthenticated, user } = useSelector((state: RootState) => state.auth);
 
@@ -224,10 +213,6 @@ Para rodar o projeto é preciso de:
             onSuccess: data => {
             dispatch(loginSuccess({ user: data }));
             return navigate('/');
-            },
-            onError: error => {
-            console.error(error);
-            return error;
             },
          });
       };
@@ -245,29 +230,41 @@ Para rodar o projeto é preciso de:
             dispatch(logoutUser());
             return navigate('/register');
             },
-            onError: error => {
-            console.error(error);
-            },
          });
       };
 
-      const {
-         mutate: authenticateMutation,
-         isSuccess: isAuthenticateSuccess,
-         isPending: isAuthenticatePending,
-      } = useAuthenticateUser();
-
+      const { mutate: authenticateMutation } = useAuthenticateUser();
       const authenticate = async () => {
-         if (!Cookies.get('auth-token')) {
+         dispatch(
+            changeAuthenticateStatus({ 
+               isAuthenticateSuccess: false, 
+               isAuthenticatePending: true
+            }),
+         );
+         if (!Cookies.get('auth-token') && location.pathname !== '/register')
             return navigate('/register');
-         }
 
          return authenticateMutation(undefined, {
             onSuccess: data => {
             dispatch(loginSuccess({ user: data }));
+            dispatch(
+               changeAuthenticateStatus({ 
+                  isAuthenticateSuccess: true,
+                  isAuthenticatePending: false
+               }),
+            );
+            if (location.pathname === '/register' || location.pathname === '/login')
+               return navigate('/');
+            return;
             },
             onError: () => {
             dispatch(logoutUser());
+            dispatch(
+               changeAuthenticateStatus({ 
+                  isAuthenticateSuccess: false,
+                  isAuthenticatePending: false
+               }),
+            );
             return navigate('/register');
             },
          });
@@ -291,10 +288,6 @@ Para rodar o projeto é preciso de:
             logoutError,
          },
          authenticate,
-         authenticateStatus: {
-            isAuthenticateSuccess,
-            isAuthenticatePending,
-         },
       };
    };
    ```
@@ -311,16 +304,16 @@ Para rodar o projeto é preciso de:
    it('Should return an error if either the email or password are invalid', async () => {
       server.use(
          http.post('/auth/login', async () => {
-         return new HttpResponse(JSON.stringify({ message: 'Email ou senha inválidos.' }), {
-            status: 401,
-         });
+            return new HttpResponse(JSON.stringify({ message: 'Email ou senha inválidos.' }), {
+               status: 401,
+            });
          }),
       );
 
       const Stub = createRoutesStub([
          {
-         path: '/login',
-         Component: Login,
+            path: '/login',
+            Component: Login,
          },
       ]);
 
@@ -344,8 +337,8 @@ Para rodar o projeto é preciso de:
 
 1. **Cite duas técnicas para otimizar a performance de uma lista longa de itens em React (por exemplo, dezenas de milhares de elementos na tela).**
 
-   A dificuldade de mostrar dezenas de milhares de componentes na tela é lidar com todas as renderizações que isso vai causar. O React possui algumas ferramentas para remediar esse problema com memoization e evitar que componentes sejam re-renderizados sem motivo. As três ferramentas principais seriam o `memo`, `useMemo` e `useCallback`. O `memo` é usado para memoização direto na criação de componentes, fazendo com que eles só sejam re-renderizados caso as props passadas pelo pai mudem, sendo ideal para componentes que não possuem estados internos e apenas exibem dados. Dessa forma os milhares de componentes da lista não serão re-renderizados caso o componente pai seja re-renderizado. Essa abordagem deve ser usada em par com `useMemo`, que memoiza computações de dados e evita processamento desnecessário, e com o `useCallback`, que memoiza declarações de funções, que é especialmente útil quando uma função no componente pai é passada como props para um componente filho. Dessa maneira, quando o componente pai é re-renderizado, o método declarado com `useCallback` não é redeclarado, evitando re-renderizações em componentes filho usando `memo`.
+   A dificuldade de mostrar dezenas de milhares de componentes na tela é lidar com todas as renderizações que isso vai causar. O React possui algumas ferramentas para remediar esse problema com memoization para evitar que componentes sejam re-renderizados sem motivo. As três ferramentas principais seriam o `memo`, `useMemo` e `useCallback`. O `memo` é usado para memoização direto na criação de componentes, fazendo com que eles só sejam re-renderizados caso as props passadas pelo pai mudem, sendo ideal para componentes que não possuem estados internos e apenas exibem dados. Dessa forma os milhares de componentes da lista não serão re-renderizados caso o componente pai seja re-renderizado. Essa abordagem deve ser usada em par com `useMemo`, que memoiza computações de dados e evita processamento desnecessário, e com o `useCallback`, que memoiza declarações de funções, que é especialmente útil quando uma função no componente pai é passada como props para um componente filho. Dessa maneira, quando o componente pai é re-renderizado, o método declarado com `useCallback` não é redeclarado, evitando re-renderizações em componentes filho usando `memo`.
 
-   Outro método que é mais uma prática ainda nas ferramentas do próprio React é a de sempre usar a prop `key` ao renderizar listas. Essa prop cria um indetificador único para elemento da longa lista permite ao React gerenciar qualquer mudança nela e evitar computações desnecessárias.
+   Outro método que é mais uma boa prática ainda nas ferramentas do próprio React é a de sempre usar a prop `key` ao renderizar listas. Essa prop cria um indetificador único para elemento da longa lista permite ao React gerenciar qualquer mudança nela e evitar computações desnecessárias.
 
    Por fim, outro método seria o de renderizar apenas elementos visíveis em tela, o que não é uma funcionalidade nativa do próprio React, mas é algo facilmente implementável com uma biblioteca.
