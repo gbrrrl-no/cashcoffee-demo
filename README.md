@@ -1,6 +1,8 @@
 # [CashCoffee Demo](https://https://cashcoffee-demo.vercel.app/)
 
-Demo de login e autenticação usando Typescript com react-router (framework) e TailwindCSS. Para fins de facilitar a visualização da demo, foi feito um deploy na Vercel. É possível acessar a demo publicada clicando [aqui](https://https://cashcoffee-demo.vercel.app/). O link do repositório é [este](https://github.com/gbrrrl-no/cashcoffee-demo)
+Demo de login e autenticação usando Typescript com react-router (framework) e TailwindCSS. Para fins de facilitar a visualização da demo, foi feito um deploy na Vercel. É possível acessar a demo publicada clicando [aqui](https://https://cashcoffee-demo.vercel.app/).
+
+Você pode acessar o repositório [aqui](https://github.com/gbrrrl-no/cashcoffee-demo).
 
 ## Tecnologias Utilizadas
 
@@ -339,7 +341,7 @@ Para rodar o projeto é preciso de:
 
 1. **Cite duas técnicas para otimizar a performance de uma lista longa de itens em React (por exemplo, dezenas de milhares de elementos na tela).**
 
-   A dificuldade de mostrar dezenas de milhares de componentes na tela é lidar com todas as renderizações que isso vai causar. O React possui algumas ferramentas para remediar esse problema com memoization para evitar que componentes sejam re-renderizados sem motivo. As três ferramentas principais seriam o `memo`, `useMemo` e `useCallback`. O `memo` é usado para memoização direto na criação de componentes, fazendo com que eles só sejam re-renderizados caso as props passadas pelo pai mudem, sendo ideal para componentes que não possuem estados internos e apenas exibem dados. Dessa forma os milhares de componentes da lista não serão re-renderizados caso o componente pai seja re-renderizado. Essa abordagem deve ser usada em par com `useMemo`, que memoiza computações de dados e evita processamento desnecessário, e com o `useCallback`, que memoiza declarações de funções, que é especialmente útil quando uma função no componente pai é passada como props para um componente filho. Dessa maneira, quando o componente pai é re-renderizado, o método declarado com `useCallback` não é redeclarado, evitando re-renderizações em componentes filho usando `memo`.
+   A dificuldade de mostrar dezenas de milhares de componentes na tela é lidar com todas as renderizações que isso vai causar. O React possui algumas ferramentas para remediar esse problema com memoization para evitar que componentes sejam re-renderizados sem motivo. As três ferramentas principais seriam o `memo`, `useMemo` e `useCallback`. O `memo` é usado para memoização direto na criação de componentes, fazendo com que eles só sejam re-renderizados caso as props passadas pelo pai mudem, sendo ideal para componentes que não possuem computações complexas. Dessa forma os milhares de componentes da lista não serão re-renderizados caso o componente pai seja re-renderizado. Essa abordagem deve ser usada em par com `useMemo`, que memoiza computações de dados e evita processamento desnecessário, e com o `useCallback`, que memoiza declarações de funções, que é especialmente útil quando uma função no componente pai é passada como props para um componente filho. Dessa maneira, quando o componente pai é re-renderizado, o método declarado com `useCallback` não é redeclarado, evitando re-renderizações em componentes filho usando `memo`.
 
    Outro método que é mais uma boa prática ainda nas ferramentas do próprio React é a de sempre usar a prop `key` ao renderizar listas. Essa prop cria um indetificador único para elemento da longa lista permite ao React gerenciar qualquer mudança nela e evitar computações desnecessárias.
 
