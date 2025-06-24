@@ -17,6 +17,7 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
       include: ['app/routes/**/*.{ts,tsx}', 'app/components/**/*.{ts,tsx}'],
+      exclude: ['app/routes/**/_*.{ts,tsx}'], // naming convention to ignore layouts without testable funcionalities
     },
   },
 });
