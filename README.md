@@ -1,6 +1,6 @@
 # [CashCoffee Demo](https://https://cashcoffee-demo.vercel.app/)
 
-Demo de login e autenticação usando Typescript com react-router (framework) e TailwindCSS. Para fins de facilitar a visualização da demo, foi feito um deploy na Vercel. É possível acessar a demo publicada clicando [aqui](https://https://cashcoffee-demo.vercel.app/).
+Demo de login e autenticação usando Typescript com react-router (framework) e TailwindCSS. Para fins de facilitar a visualização da demo, foi feito um deploy na Vercel. É possível acessar a demo publicada clicando [aqui](https://https://cashcoffee-demo.vercel.app/). O link do repositório é [este](https://github.com/gbrrrl-no/cashcoffee-demo)
 
 ## Tecnologias Utilizadas
 

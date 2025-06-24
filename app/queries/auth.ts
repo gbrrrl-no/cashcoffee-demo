@@ -66,6 +66,10 @@ export const registerSchema = z
   .refine(data => data.password === data.confirmPassword, {
     message: 'As senhas não coincidem',
     path: ['confirmPassword'],
+  })
+  .refine(data => data.password === data.confirmPassword, {
+    message: 'As senhas não coincidem',
+    path: ['password'],
   });
 
 export const useRegister = () => {

@@ -1,4 +1,4 @@
-import { useForm, type SubmitHandler } from 'react-hook-form';
+import { useForm, type SubmitHandler, type ChangeHandler } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -20,6 +20,7 @@ export default function Register() {
     formState: { errors },
   } = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
+    mode: 'onBlur',
   });
 
   const onSubmit: SubmitHandler<z.infer<typeof registerSchema>> = async data => {
@@ -84,6 +85,10 @@ export default function Register() {
               aria-invalid={errors.password ? 'true' : 'false'}
               {...register('password', { required: true })}
             />
+            <small className='mt-1 rounded-sm bg-amber-500/20 p-2 text-xs text-amber-500 ring ring-amber-500/40 dark:bg-amber-500/10 dark:text-amber-500/60 dark:ring-amber-500/20'>
+              A senha deve conter pelo menos 8 caracteres, uma letra maiúscula, uma letra minúscula,
+              um número e um caractere especial.
+            </small>
           </div>
           <div>
             <label htmlFor='confirmPassword'>Confirme sua senha:</label>

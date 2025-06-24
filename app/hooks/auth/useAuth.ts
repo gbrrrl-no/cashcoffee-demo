@@ -74,8 +74,11 @@ export const useAuth = (): UseAuthReturn => {
     dispatch(
       changeAuthenticateStatus({ isAuthenticateSuccess: false, isAuthenticatePending: true }),
     );
-    if (!Cookies.get('auth-token') && location.pathname !== '/register')
+
+    if (!Cookies.get('auth-token')) {
+      if (['/register', '/login'].includes(location.pathname)) return;
       return navigate('/register');
+    }
 
     return authenticateMutation(undefined, {
       onSuccess: data => {
@@ -83,8 +86,7 @@ export const useAuth = (): UseAuthReturn => {
         dispatch(
           changeAuthenticateStatus({ isAuthenticateSuccess: true, isAuthenticatePending: false }),
         );
-        if (location.pathname === '/register' || location.pathname === '/login')
-          return navigate('/');
+        if (['/register', '/login'].includes(location.pathname)) return navigate('/');
         return;
       },
       onError: () => {
